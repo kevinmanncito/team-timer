@@ -1,0 +1,14 @@
+{
+  "name": "real-simple-MEAN-app",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "nodemon server.js --development"
+  },
+  "dependencies": {
+    "express" : "latest",
+    "mongoose" : "latest",
+    "socket.io" : "latest",
+    "logger": "latest"
+  }
+}

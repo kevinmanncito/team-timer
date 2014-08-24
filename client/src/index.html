@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html ng-app="lkScaffold" ng-controller="AppCtrl">
+<head>
+  <title>Team Timer</title>
+
+  <!-- compiled CSS --><% styles.forEach( function ( file ) { %>
+  <link rel="stylesheet" type="text/css" href="<%= config.staticRoot %><%= file %>" /><% }); %>
+
+  <!-- compiled JavaScript --><% scripts.forEach( function ( file ) { %>
+  <script type="text/javascript" src="<%= config.staticRoot %><%= file %>"></script><% }); %>
+
+</head>
+<body>
+  <div class="lk-wrapper">
+    <div ui-view="main"></div>
+  </div>
+</body>
+</html>

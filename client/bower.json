@@ -1,0 +1,19 @@
+{
+  "name": "lk-angular-scaffold",
+  "devDependencies": {
+    "angular": "~1.2.8",
+    "bootstrap": "~3.0.3",
+    "angular-bootstrap": "~0.9.0",
+    "angular-ui-router": "~0.2.0",
+    "angular-ui-utils": "~0.0.4",
+    "angular-cookies": "~1.2.0",
+    "lodash": "2.4.1",
+    "angular-rest-models": "git://github.com/cedub/angular-models.git#0.3.3",
+    "angular-google-analytics": "git://github.com/cedub/angular-google-analytics#0.0.6",
+    "analytics": "http://www.google-analytics.com/analytics.js",
+    "angular-translate": "2.2.0"
+  },
+  "resolutions": {
+    "angular": "1.2.18"
+  }
+}
