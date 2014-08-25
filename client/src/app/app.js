@@ -2,6 +2,7 @@ angular.module( 'rmTimer', [
   'templates-app',
   'templates-common',
   'rm.navbar',
+  'rm.timer',
   'rm.home',
   'ui.router.state',
   'ui.route'

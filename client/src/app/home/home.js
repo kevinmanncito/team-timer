@@ -7,7 +7,7 @@ angular.module( 'rm.home', [
   $stateProvider.state( 'home', {
     url: '/home',
     views: {
-      "main": {
+      'main': {
         controller: 'HomeCtrl',
         templateUrl: 'home/home.tpl.html'
       }
