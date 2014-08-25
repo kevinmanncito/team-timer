@@ -1,7 +1,8 @@
-angular.module( 'lkScaffold', [
+angular.module( 'rmTimer', [
   'templates-app',
   'templates-common',
-  'lk.home',
+  'rm.navbar',
+  'rm.home',
   'ui.router.state',
   'ui.route'
 ])

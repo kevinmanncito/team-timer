@@ -6,9 +6,13 @@
     "start": "nodemon server.js --development"
   },
   "dependencies": {
-    "express" : "latest",
-    "mongoose" : "latest",
-    "socket.io" : "latest",
-    "logger": "latest"
+    "body-parser": "^1.6.5",
+    "express": "4.8.5",
+    "logger": "0.0.1",
+    "moment": "2.8.2",
+    "mongoose": "3.8.15",
+    "mongoose-auto-increment": "^3.0.8",
+    "socket.io": "1.0.6",
+    "underscore": "^1.6.0"
   }
 }

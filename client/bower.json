@@ -15,5 +15,8 @@
   },
   "resolutions": {
     "angular": "1.2.18"
+  },
+  "dependencies": {
+    "normalize-css": "~3.0.1"
   }
 }

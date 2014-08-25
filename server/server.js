@@ -1,17 +1,17 @@
-var express  = require('express'),
-    app      = express(),
-    server   = require('http').createServer(app),
-    io       = require('socket.io').listen(server),
-    path     = require('path'),
-    mongoose = require('mongoose'),
-    database = require('./config/database');
-
-//configurations
-mongoose.connect(database.url);
+var express       = require('express'),
+    app           = express(),
+    server        = require('http').createServer(app),
+    io            = require('socket.io').listen(server),
+    path          = require('path'),
+    bodyParser    = require('body-parser');
 
 // all environments
 app.set('port', process.env.PORT || 3000);
 app.use('/static', express.static(path.resolve('../client/build')));
+app.use(bodyParser.json());       // to support JSON-encoded bodies
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 
 // Production headers
 if (app.get('env') === 'production') {

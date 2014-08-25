@@ -1,4 +1,4 @@
-angular.module( 'lk.home', [
+angular.module( 'rm.home', [
   'ui.router.state'
 ])
 

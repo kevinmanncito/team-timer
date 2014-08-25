@@ -1,1 +1,1 @@
-angular.module('lk.data', []);
+angular.module('rm.data', []);
