@@ -1,1 +1,15 @@
-<div class="timer"></div>
+<div class="timer">
+  <div class="title">
+    <input ng-model="timerName" type="text">
+  </div>
+  <div class="current-time" ng-bind="currentTime"></div>
+  <div class="controls">
+    <div class="control play"></div>
+    <div class="control reset"></div>
+    <div class="control up"></div>
+  </div>
+  <div class="switch"></div>
+  <div class="description">
+    <textarea ng-model="timerDescription" rows="8" cols="40"></textarea>
+  </div>
+</div>

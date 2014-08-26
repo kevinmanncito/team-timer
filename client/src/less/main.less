@@ -70,8 +70,66 @@ nav {
 }
 
 .timer {
+  * {
+    /* outline: 1px dashed red; */
+  }
+  margin: 0 auto;
   width: 300px;
-  min-height: 400px;
+  min-height: 300px;
   border: 1px solid @lightGray;
   border-radius: 2px;
+  .title {
+    input {
+      border: none;
+      padding: 0px;
+      margin: 0px;
+      width: 100%;
+    }
+    padding: 2px;
+    outline: 1px solid black;
+  }
+  .description {
+    textarea {
+      padding: 0px;
+      border: none;
+      margin: 0px;
+      width: 100%;
+    }
+    padding: 2px;
+    outline: 1px solid black;
+  }
+  .current-time {
+    min-height: 100px;
+  }
+  .controls {
+    .control {
+      cursor: pointer;
+      min-height: 65px;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+    div {
+      float: left;
+      width: 33.333%;
+    }
+    .play {
+      background-image: url('../assets/img/play.png');
+    }
+    .pause {
+      background-image: url('../assets/img/play.png');
+    }
+    .reset {
+      background-image: url('../assets/img/repeat.png');
+    }
+    .up {
+      background-image: url('../assets/img/arrow_up.png');
+    }
+    .down {
+      background-image: url('../assets/img/arrow_down.png');
+    }
+    min-height: 70px;
+  }
+  .switch {
+
+  }
 }

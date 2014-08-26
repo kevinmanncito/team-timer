@@ -4,19 +4,22 @@ angular.module('rm.timer', [
 
 
 .config(['$stateProvider', function ($stateProvider) {
-  $stateProvider.state( 'timer', {
-    url: '/timer',
+  $stateProvider.state( 'create-timer', {
+    url: '/create-timer',
     views: {
       'main': {
-        controller: 'TimerCtrl',
-        templateUrl: 'timer/timerPage.tpl.html'
+        controller: 'CreateTimerCtrl',
+        templateUrl: 'timer/timerCreatePage.tpl.html'
       }
     }
   });
 }])
 
 
-.controller('TimerCtrl', [function () {
+.controller('CreateTimerCtrl', [function () {
+  var defaultTimer = {
+
+  };
 }])
 
 
@@ -25,7 +28,11 @@ angular.module('rm.timer', [
     templateUrl: 'timer/timer.tpl.html',
     replace: true,
     restrict: 'E',
+    scope: {
+      timerData: '='
+    },
     link: function ($scope, iElement, iAttrs) {
+
     }
   };
 });
