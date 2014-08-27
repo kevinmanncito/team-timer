@@ -1,15 +1,21 @@
 <div class="timer">
   <div class="title">
-    <input ng-model="timerName" type="text">
+    <input ng-model="timerData.name" type="text" placeholder="Title">
   </div>
-  <div class="current-time" ng-bind="currentTime"></div>
+  <div ng-show="!timeNotSet" class="current-time">
+    <span>{{ timerData.currentTime }}</span>
+  </div>
+  <div ng-show="timerData.type === 'down' && timeNotSet" class="time-form">
+    <input ng-model="timerData.currentTime" placeholder="0:00:00"></input>
+    <button ng-click="setCountdown()">Set Time</button>
+  </div>
   <div class="controls">
-    <div class="control play"></div>
-    <div class="control reset"></div>
-    <div class="control up"></div>
+    <div class="control" ng-class="{'play': timerData.status==='off', 'pause': timerData.status==='on'}" ng-click="togglePlayPause()"></div>
+    <div class="control reset" ng-click="resetTimer()"></div>
+    <div class="control" ng-class="{'up': timerData.type==='up', 'down': timerData.type==='down'}" ng-click="toggleType()"></div>
   </div>
   <div class="switch"></div>
   <div class="description">
-    <textarea ng-model="timerDescription" rows="8" cols="40"></textarea>
+    <textarea ng-model="timerData.description" rows="8" placeholder="Description"></textarea>
   </div>
 </div>

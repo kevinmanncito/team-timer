@@ -50,6 +50,9 @@ nav {
   border-radius: 40px;
   font-family: 'Helvetica Neue', Helvetica, sans-serif;
 }
+.btn-small {
+
+}
 .btn:active {
   padding-top: 15px;
 }
@@ -78,30 +81,122 @@ nav {
   min-height: 300px;
   border: 1px solid @lightGray;
   border-radius: 2px;
+  -moz-box-shadow:    0 0 10px #000000;
+  -webkit-box-shadow: 0 0 10px #000000;
+  box-shadow:         0 0 10px #000000;
+    /* Form wrapper styling */
+  .time-form {
+      height: 65px;
+      width: 100%;
+      background: #444;
+      background: rgba(0,0,0,.2);
+      border-radius: 1px;
+      /* padding: 5px 0px 0px 0px; */
+  }
+
+  /* Form text input */
+  .time-form input {
+      width: 70%;
+      height: 65px;
+      float: left;
+      border: 0;
+      padding: 0px;
+      background: #eee;
+      font-size: 50px;
+      text-align: center;
+  }
+
+  .time-form input:focus {
+      outline: 0;
+      background: #fff;
+      box-shadow: 0 0 2px rgba(0,0,0,.8) inset;
+  }
+
+  /* Form submit button */
+  .time-form button {
+      overflow: visible;
+      position: relative;
+      float: right;
+      border: 0;
+      padding: 0;
+      cursor: pointer;
+      height: 65px;
+      width: 30%;
+      color: #fff;
+      background: @green;
+      border-radius: 0 1px 1px 0;
+      text-shadow: 0 -1px 0 rgba(0, 0 ,0, .3);
+  }
+
+  .time-form button:hover {
+      background: @lightGreen;
+  }
+
+  .time-form button:active,
+  .time-form button:focus{
+      background: @darkGreen;
+      outline: 0;
+  }
+
+  .time-form button:before { /* left arrow */
+      content: '';
+      position: absolute;
+      border-width: 8px 8px 8px 0;
+      border-style: solid solid solid none;
+      border-color: transparent @green transparent;
+      top: 25px;
+      left: -6px;
+  }
+
+  .time-form button:hover:before{
+      border-right-color: @lightGreen;
+  }
+
+  .time-form button:focus:before,
+  .time-form button:active:before{
+          border-right-color: @lightGreen;
+  }
+
+  .time-form button::-moz-focus-inner { /* remove extra button spacing for Mozilla Firefox */
+      border: 0;
+      padding: 0;
+  }
   .title {
     input {
+      text-align: center;
       border: none;
       padding: 0px;
-      margin: 0px;
+      margin: 0px 3px 0px 3px;
       width: 100%;
+      height: 40px;
+      font-size: 25px;
     }
     padding: 2px;
-    outline: 1px solid black;
+    outline: 1px solid @lightGray;
   }
   .description {
     textarea {
+      margin: 0px 3px 0px 3px;
       padding: 0px;
       border: none;
       margin: 0px;
       width: 100%;
     }
     padding: 2px;
-    outline: 1px solid black;
+    outline: 1px solid @lightGray;
   }
   .current-time {
-    min-height: 100px;
+    min-height: 65px;
+    font-size: 50px;
+    text-align: center;
+    span {
+      display: inline-block;
+      margin-top: 5px;
+    }
+    /* padding: 5px 0px 0px 0px; */
   }
   .controls {
+    border-top: 1px solid @lightGray;
     .control {
       cursor: pointer;
       min-height: 65px;
@@ -116,7 +211,7 @@ nav {
       background-image: url('../assets/img/play.png');
     }
     .pause {
-      background-image: url('../assets/img/play.png');
+      background-image: url('../assets/img/pause.png');
     }
     .reset {
       background-image: url('../assets/img/repeat.png');
