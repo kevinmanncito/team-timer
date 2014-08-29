@@ -2,12 +2,12 @@
   <div class="title">
     <input ng-model="timerData.name" type="text" placeholder="Title">
   </div>
-  <div ng-show="!timeNotSet" class="current-time">
-    <span>{{ timerData.currentTime }}</span>
-  </div>
-  <div ng-show="timerData.type === 'down' && timeNotSet" class="time-form">
-    <input ng-model="timerData.currentTime" placeholder="0:00:00"></input>
-    <button ng-click="setCountdown()">Set Time</button>
+  <div class="current-time">
+    <input ng-model="hours" ng-change="timerData.status='off'" placeholder="0" class="hours">
+    <span>:</span>
+    <input ng-model="minutes" ng-change="timerData.status='off'" placeholder="00" class="minutes">
+    <span>:</span>
+    <input ng-model="seconds" ng-change="timerData.status='off'" placeholder="00" class="seconds">
   </div>
   <div class="controls">
     <div class="control" ng-class="{'play': timerData.status==='off', 'pause': timerData.status==='on'}" ng-click="togglePlayPause()"></div>
