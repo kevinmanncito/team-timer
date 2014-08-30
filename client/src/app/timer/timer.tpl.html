@@ -3,11 +3,11 @@
     <input ng-model="timerData.name" type="text" placeholder="Title">
   </div>
   <div class="current-time">
-    <input ng-model="hours" ng-change="timerData.status='off'" placeholder="0" class="hours">
+    <input ng-model="hours" ng-change="manualTimeChange()" placeholder="0" class="hours">
     <span>:</span>
-    <input ng-model="minutes" ng-change="timerData.status='off'" placeholder="00" class="minutes">
+    <input ng-model="minutes" ng-change="manualTimeChange()" placeholder="00" class="minutes">
     <span>:</span>
-    <input ng-model="seconds" ng-change="timerData.status='off'" placeholder="00" class="seconds">
+    <input ng-model="seconds" ng-change="manualTimeChange()" placeholder="00" class="seconds">
   </div>
   <div class="controls">
     <div class="control" ng-class="{'play': timerData.status==='off', 'pause': timerData.status==='on'}" ng-click="togglePlayPause()"></div>

@@ -26,6 +26,9 @@ angular.module('rm.timer', [
     baseTime: Date.now(),
     created: Date.now()
   };
+  $scope.saveTimer = function() {
+    console.log($scope.data);
+  };
 }])
 
 
@@ -46,12 +49,17 @@ angular.module('rm.timer', [
           } else {
             $scope.timerData.currentTime -= 1;
           }
+          if ($scope.timerData.currentTime < 0) {
+            $scope.timerData.currentTime = 0;
+            $scope.timerData.status = 'off';
+            $scope.timeValidator();
+          }
           $scope.timeValidator();
         }
       }, 1000);
       $scope.hours = 0;
-      $scope.minutes = "00";
-      $scope.seconds = "00";
+      $scope.minutes = 0;
+      $scope.seconds = 0;
       $scope.calculateHoursMinutesSeconds = function() {
         var tempTime = $scope.timerData.currentTime;
         $scope.minutes = parseInt($scope.minutes, 10);
@@ -90,6 +98,14 @@ angular.module('rm.timer', [
         if (parseInt($scope.seconds, 10) < 10) {
           $scope.seconds = "0" + String($scope.seconds);
         }
+      };
+      $scope.manualTimeChange = function() {
+        $scope.timerData.status = 'off';
+        var temp = 0;
+        temp += parseInt($scope.seconds, 10);
+        temp += parseInt($scope.minutes, 10)*60;
+        temp += parseInt($scope.hours, 10)*3600;
+        $scope.timerData.currentTime = temp;
       };
       $scope.timeValidator();
     }
