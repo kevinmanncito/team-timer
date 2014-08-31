@@ -1,7 +1,8 @@
-var path  = require('path'),
-    User  = require('./models/User'),
-    Timer = require('./models/Timer'),
-    _     = require('underscore');
+var path   = require('path'),
+    Moment = require('moment'),
+    User   = require('./models/User'),
+    Timer  = require('./models/Timer'),
+    _      = require('underscore');
 
 module.exports = function(app) {
   // =====================
@@ -28,19 +29,19 @@ module.exports = function(app) {
   app.post('/rest/timers', function(req, res) {
     Timer.create({
       name: req.body.name,
-      currentTime: Date(Date.now()),
+      currentTime: 0,
+      baseTime: new Moment(),
       status: 'off',
-      created: Date(Date.now()),
+      created: new Moment(),
       type: req.body.type,
       expiration: req.body.expiration
     }, function(err, timer) {
       if (err) {
         res.send(err);
       }
-
       Timer.find(function(err, timers) {
         if (err) {
-          res.send(err)
+          res.send(err);
         }
         res.json(timers);
       });
@@ -58,6 +59,7 @@ module.exports = function(app) {
       timer.created = timer.created;
       timer.expiration = timer.expiration;
       timer.currentTime = req.body.currentTime;
+      timer.baseTime = req.body.baseTime;
       timer.save();
       res.json(timer);
     });
@@ -105,7 +107,7 @@ module.exports = function(app) {
 
       User.find(function(err, users) {
         if (err) {
-          res.send(err)
+          res.send(err);
         }
         res.json(users);
       });

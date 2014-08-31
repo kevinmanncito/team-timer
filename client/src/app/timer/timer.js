@@ -1,5 +1,6 @@
 angular.module('rm.timer', [
-'ui.router.state'
+  'ui.router.state',
+  'angularMoment'
 ])
 
 
@@ -23,8 +24,8 @@ angular.module('rm.timer', [
     status: "off",
     description: "",
     currentTime: 0,
-    baseTime: Date.now(),
-    created: Date.now()
+    baseTime: moment(),
+    created: moment()
   };
   $scope.saveTimer = function() {
     console.log($scope.data);
@@ -32,7 +33,7 @@ angular.module('rm.timer', [
 }])
 
 
-.directive('timer', ['$interval', function($interval) {
+.directive('timer', ['$interval', 'moment', function($interval, moment) {
   return {
     templateUrl: 'timer/timer.tpl.html',
     replace: true,
@@ -106,6 +107,10 @@ angular.module('rm.timer', [
         temp += parseInt($scope.minutes, 10)*60;
         temp += parseInt($scope.hours, 10)*3600;
         $scope.timerData.currentTime = temp;
+        // Sync the base time with the new current time
+        if ($scope.timerData.type = 'up') {
+          $scope.timerData.baseTime = moment().subtract(temp, 'seconds');
+        }
       };
       $scope.timeValidator();
     }

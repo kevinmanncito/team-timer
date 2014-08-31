@@ -1,11 +1,12 @@
 angular.module( 'rmTimer', [
   'templates-app',
   'templates-common',
+  'ui.router.state',
+  'ui.route',
+  'angularMoment',
   'rm.navbar',
   'rm.timer',
-  'rm.home',
-  'ui.router.state',
-  'ui.route'
+  'rm.home'
 ])
 
 

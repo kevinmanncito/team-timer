@@ -9,7 +9,8 @@
     "angular-rest-models": "git://github.com/cedub/angular-models.git#0.3.5"
   },
   "resolutions": {
-    "angular": "~1.2.22"
+    "angular": "~1.2.22",
+    "moment": "~2.8.2"
   },
   "dependencies": {
     "normalize-css": "~3.0.1",

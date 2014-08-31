@@ -72,8 +72,8 @@ module.exports = {
       'vendor/angular-rest-models/src/angular-rest-models.js',
       'vendor/angular-google-analytics/src/angular-google-analytics.js',
       'vendor/angular-translate/angular-translate.js',
-      'vendor/angular-moment/angular-moment.js',
-      'vendor/moment/moment.js'
+      'vendor/moment/moment.js',
+      'vendor/angular-moment/angular-moment.js'
     ],
     css: [
     ],

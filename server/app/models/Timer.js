@@ -5,11 +5,12 @@ var mongoose = require('mongoose'),
 
 var timerSchema = new Schema({
   name: String,
-  currentTime: Date,
+  currentTime: Number,
+  baseTime: 'Moment',
   status: String,
   url: String,
-  created: Date,
-  expiration: Date,
+  created: 'Moment',
+  expiration: 'Moment',
   type: String
 });
 
