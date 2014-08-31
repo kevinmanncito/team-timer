@@ -73,7 +73,8 @@ module.exports = {
       'vendor/angular-google-analytics/src/angular-google-analytics.js',
       'vendor/angular-translate/angular-translate.js',
       'vendor/moment/moment.js',
-      'vendor/angular-moment/angular-moment.js'
+      'vendor/angular-moment/angular-moment.js',
+      'vendor/angular-socket-io/socket.js'
     ],
     css: [
     ],

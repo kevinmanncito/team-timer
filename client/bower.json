@@ -15,6 +15,7 @@
   "dependencies": {
     "normalize-css": "~3.0.1",
     "angular-moment": "~0.8.0",
-    "moment": "~2.8.2"
+    "moment": "~2.8.2",
+    "angular-socket-io": "~0.6.0"
   }
 }

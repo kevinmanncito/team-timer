@@ -3,8 +3,8 @@ angular.module( 'rmTimer', [
   'templates-common',
   'ui.router.state',
   'ui.route',
-  'angularMoment',
   'rm.navbar',
+  'btford.socket-io',
   'rm.timer',
   'rm.home'
 ])

@@ -17,6 +17,11 @@ angular.module('rm.timer', [
 }])
 
 
+.factory('timerSocket', ['socketFactory', function(socketFactory) {
+  return socketFactory();
+}])
+
+
 .controller('CreateTimerCtrl', ['$scope', function ($scope) {
   $scope.data = {
     name: "Untitled",
