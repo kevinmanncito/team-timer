@@ -17,12 +17,12 @@ angular.module('rm.timer', [
 }])
 
 
-.factory('timerSocket', ['socketFactory', function(socketFactory) {
-  return socketFactory();
+.factory('timerSocket', [function() {
+  return io.connect('http://localhost:3000');
 }])
 
 
-.controller('CreateTimerCtrl', ['$scope', function ($scope) {
+.controller('CreateTimerCtrl', ['$scope', '$http', '$state', function ($scope, $http, $state) {
   $scope.data = {
     name: "Untitled",
     type: "up",
@@ -33,12 +33,17 @@ angular.module('rm.timer', [
     created: moment()
   };
   $scope.saveTimer = function() {
-    console.log($scope.data);
+    $http.post('/rest/timers', $scope.data).then( function(res) {
+      console.log(res);
+      $state.go('timer-detail', {timerId: res.data._id});
+    }, function(err) {
+      $scope.error = true;
+    });
   };
 }])
 
 
-.directive('timer', ['$interval', 'moment', function($interval, moment) {
+.directive('timer', ['$interval', 'timerSocket', function($interval, timerSocket) {
   return {
     templateUrl: 'timer/timer.tpl.html',
     replace: true,
@@ -48,6 +53,10 @@ angular.module('rm.timer', [
     },
     link: function ($scope, iElement, iAttrs) {
       // This makes the clock tick
+      if ($scope.timerData._id) {
+        // Do saving stuff and stuff like that
+        console.log('has id!');
+      }
       $interval(function () {
         if ($scope.timerData.status === 'on') {
           if ($scope.timerData.type === 'up') {
@@ -63,9 +72,6 @@ angular.module('rm.timer', [
           $scope.timeValidator();
         }
       }, 1000);
-      $scope.hours = 0;
-      $scope.minutes = 0;
-      $scope.seconds = 0;
       $scope.calculateHoursMinutesSeconds = function() {
         var tempTime = $scope.timerData.currentTime;
         $scope.minutes = parseInt($scope.minutes, 10);
@@ -115,6 +121,8 @@ angular.module('rm.timer', [
         // Sync the base time with the new current time
         if ($scope.timerData.type = 'up') {
           $scope.timerData.baseTime = moment().subtract(temp, 'seconds');
+        } else {
+          $scope.timerData.baseTime = moment();
         }
       };
       $scope.timeValidator();

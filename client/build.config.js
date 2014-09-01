@@ -74,6 +74,7 @@ module.exports = {
       'vendor/angular-translate/angular-translate.js',
       'vendor/moment/moment.js',
       'vendor/angular-moment/angular-moment.js',
+      'vendor/socket.io-client/dist/socket.io.js',
       'vendor/angular-socket-io/socket.js'
     ],
     css: [

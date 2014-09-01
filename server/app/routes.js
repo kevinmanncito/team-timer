@@ -29,22 +29,17 @@ module.exports = function(app) {
   app.post('/rest/timers', function(req, res) {
     Timer.create({
       name: req.body.name,
-      currentTime: 0,
-      baseTime: new Moment(),
-      status: 'off',
+      currentTime: req.body.currentTime,
+      baseTime: req.body.baseTime,
+      status: req.body.status,
       created: new Moment(),
       type: req.body.type,
-      expiration: req.body.expiration
+      expiration: new Moment().add(2, 'days')
     }, function(err, timer) {
       if (err) {
         res.send(err);
       }
-      Timer.find(function(err, timers) {
-        if (err) {
-          res.send(err);
-        }
-        res.json(timers);
-      });
+      res.send(timer);
     });
   });
 
@@ -104,13 +99,7 @@ module.exports = function(app) {
       if (err) {
         res.send(err);
       }
-
-      User.find(function(err, users) {
-        if (err) {
-          res.send(err);
-        }
-        res.json(users);
-      });
+      res.json(user);
     });
   });
 

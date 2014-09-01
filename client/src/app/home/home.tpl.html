@@ -1,6 +1,11 @@
 <div>
-  <h2 class="center">Timers that can be viewed anywhere.</h2>
+  <div class="large-banner center">
+    <h2>Timers that can be viewed anywhere.</h2>
+    <div>
+      <a ui-sref="create-timer" class="btn btn-success">Create Timer</a>
+    </div>
+  </div>
   <div class="center">
-    <a ui-sref="create-timer" class="btn btn-success">Create Timer</a>
+    <timer ng-repeat="timer in timers" timer-data="timer"></timers>
   </div>
 </div>

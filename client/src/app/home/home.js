@@ -1,5 +1,7 @@
 angular.module( 'rm.home', [
-  'ui.router.state'
+  'ui.router.state',
+  'rm.data',
+  'rm.timer'
 ])
 
 
@@ -11,10 +13,16 @@ angular.module( 'rm.home', [
         controller: 'HomeCtrl',
         templateUrl: 'home/home.tpl.html'
       }
+    },
+    resolve: {
+      'timers': ['Rest', function(Rest) {
+        return Rest.getTimers();
+      }]
     }
   });
 }])
 
 
-.controller( 'HomeCtrl', ['$scope', function ($scope) {
+.controller( 'HomeCtrl', ['$scope', 'timers', function ($scope, timers) {
+  $scope.timers = timers.data;
 }]);
