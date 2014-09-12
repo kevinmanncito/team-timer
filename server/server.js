@@ -56,7 +56,19 @@ if (app.get('env') === 'development') {
 }
 
 // routes
-require('./app/routes')(app);
+// Express 3 way of routes
+// require('./app/routes')(app);
+
+// Express 4 way of routes
+var timerRouter = require('./app/routers/timer');
+var userRouter = require('./app/routers/user');
+app.use('/', timerRouter);
+app.use('/', userRouter);
+
+// Serve up the index.html file for our angular app
+app.get('/', function(req, res) {
+  res.sendFile(path.resolve('../client/build/index.html'));
+});
 
 // socket connections
 io.set('transports', ['websocket', 'xhr-polling', 'htmlfile']);
@@ -70,4 +82,5 @@ server.listen(app.get('port'), function(){
 });
 // ------------------------------------------------------------
 
-exports = module.exports = app;
+// Not sure what this is for...
+// exports = module.exports = app;

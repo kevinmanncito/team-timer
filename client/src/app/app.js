@@ -8,6 +8,7 @@ angular.module( 'rmTimer', [
   'rm.navbar',
   'rm.timer',
   'rm.timerDetail',
+  'rm.timerCreate',
   'rm.home'
 ])
 

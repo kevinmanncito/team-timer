@@ -1,7 +1,4 @@
-angular.module('rm.timerDetail', [
-  'ui.router.state',
-  'angularMoment'
-])
+angular.module('rm.timerDetail', [])
 
 
 .config(['$stateProvider', function ($stateProvider) {

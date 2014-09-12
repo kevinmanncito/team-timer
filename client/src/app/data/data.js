@@ -16,9 +16,14 @@ angular.module('rm.data', [])
       });
       return promise;
     };
+    this.updateTimer = function(id, data) {
+      var promise = $http.post('/rest/timers/' + id, data);
+      return promise;
+    };
     return {
       getTimers: this.getTimers,
-      getTimer: this.getTimer
+      getTimer: this.getTimer,
+      updateTimer: this.updateTimer
     };
   }];
 }]);

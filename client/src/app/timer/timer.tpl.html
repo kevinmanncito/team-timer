@@ -1,6 +1,6 @@
 <div class="timer">
   <div class="title">
-    <input ng-model="timerData.name" type="text" placeholder="Title">
+    <input ng-model="timerData.name" ng-change="titleOrDescriptionChange()" type="text" placeholder="Title">
   </div>
   <div class="current-time">
     <input ng-model="hours" ng-change="manualTimeChange()" placeholder="0" class="hours">
@@ -16,6 +16,6 @@
   </div>
   <div class="switch"></div>
   <div class="description">
-    <textarea ng-model="timerData.description" rows="8" placeholder="Description"></textarea>
+    <textarea ng-model="timerData.description" ng-change="titleOrDescriptionChange()" rows="8" placeholder="Description"></textarea>
   </div>
 </div>

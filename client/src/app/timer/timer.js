@@ -1,20 +1,4 @@
-angular.module('rm.timer', [
-  'ui.router.state',
-  'angularMoment'
-])
-
-
-.config(['$stateProvider', function ($stateProvider) {
-  $stateProvider.state( 'create-timer', {
-    url: '/create-timer',
-    views: {
-      'main': {
-        controller: 'CreateTimerCtrl',
-        templateUrl: 'timer/timerCreatePage.tpl.html'
-      }
-    }
-  });
-}])
+angular.module('rm.timer', [])
 
 
 .factory('timerSocket', [function() {
@@ -22,28 +6,15 @@ angular.module('rm.timer', [
 }])
 
 
-.controller('CreateTimerCtrl', ['$scope', '$http', '$state', function ($scope, $http, $state) {
-  $scope.data = {
-    name: "Untitled",
-    type: "up",
-    status: "off",
-    description: "",
-    currentTime: 0,
-    baseTime: moment(),
-    created: moment()
-  };
-  $scope.saveTimer = function() {
-    $http.post('/rest/timers', $scope.data).then( function(res) {
-      console.log(res);
-      $state.go('timer-detail', {timerId: res.data._id});
-    }, function(err) {
-      $scope.error = true;
-    });
-  };
-}])
-
-
-.directive('timer', ['$interval', 'timerSocket', function($interval, timerSocket) {
+.directive('timer', [
+  '$interval', 
+  'timerSocket', 
+  'Rest', 
+function(
+  $interval, 
+  timerSocket, 
+  Rest
+) {
   return {
     templateUrl: 'timer/timer.tpl.html',
     replace: true,
@@ -52,11 +23,18 @@ angular.module('rm.timer', [
       timerData: '='
     },
     link: function ($scope, iElement, iAttrs) {
-      // This makes the clock tick
-      if ($scope.timerData._id) {
-        // Do saving stuff and stuff like that
-        console.log('has id!');
+      if (angular.isDefined($scope.timerData._id)) {
+        $scope.socket = timerSocket;
+        $scope.socket.on('update'+String($scope.timerData._id), function (data){
+          $scope.timerData = data;
+          $scope.timeValidator();
+        });
+        $scope.updateAndSave = function() {
+          $scope.socket.emit('change', $scope.timerData);
+          Rest.updateTimer($scope.timerData._id, $scope.timerData);
+        };
       }
+      // This makes the clock tick
       $interval(function () {
         if ($scope.timerData.status === 'on') {
           if ($scope.timerData.type === 'up') {
@@ -88,12 +66,14 @@ angular.module('rm.timer', [
         } else {
           $scope.timerData.type = 'up';
         }
+        $scope.updateAndSave();
       };
       $scope.resetTimer = function() {
         $scope.timerData.currentTime = 0;
         $scope.timerData.baseTime = Date.now();
         $scope.timerData.status = 'off';
         $scope.timeValidator();
+        $scope.updateAndSave();
       };
       $scope.togglePlayPause = function() {
         if ($scope.timerData.status === 'on') {
@@ -101,6 +81,7 @@ angular.module('rm.timer', [
         } else {
           $scope.timerData.status = 'on';
         }
+        $scope.updateAndSave();
       };
       $scope.timeValidator = function() {
         $scope.calculateHoursMinutesSeconds();
@@ -110,6 +91,9 @@ angular.module('rm.timer', [
         if (parseInt($scope.seconds, 10) < 10) {
           $scope.seconds = "0" + String($scope.seconds);
         }
+      };
+      $scope.titleOrDescriptionChange = function() {
+        $scope.updateAndSave();
       };
       $scope.manualTimeChange = function() {
         $scope.timerData.status = 'off';
@@ -124,6 +108,7 @@ angular.module('rm.timer', [
         } else {
           $scope.timerData.baseTime = moment();
         }
+        $scope.updateAndSave();
       };
       $scope.timeValidator();
     }

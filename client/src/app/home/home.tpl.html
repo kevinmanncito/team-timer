@@ -5,7 +5,12 @@
       <a ui-sref="create-timer" class="btn btn-success">Create Timer</a>
     </div>
   </div>
-  <div class="center">
-    <timer ng-repeat="timer in timers" timer-data="timer"></timers>
-  </div>
+  <!-- <div class="center"> -->
+    <!-- <timer ng-repeat="timer in timers" timer-data="timer"></timers> -->
+  <!-- </div> -->
+  <ul>
+    <li ng-repeat="timer in timers">
+      <a ui-sref="timer-detail({timerId:timer._id})">{{ timer.name }}</a>
+    </li>
+  </ul>
 </div>

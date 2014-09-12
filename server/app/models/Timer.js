@@ -5,6 +5,7 @@ var mongoose = require('mongoose'),
 
 var timerSchema = new Schema({
   name: String,
+  description: String,
   currentTime: Number,
   baseTime: 'Moment',
   status: String,

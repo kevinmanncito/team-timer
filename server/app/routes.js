@@ -29,6 +29,7 @@ module.exports = function(app) {
   app.post('/rest/timers', function(req, res) {
     Timer.create({
       name: req.body.name,
+      description: req.body.description,
       currentTime: req.body.currentTime,
       baseTime: req.body.baseTime,
       status: req.body.status,
@@ -51,6 +52,8 @@ module.exports = function(app) {
       timer.name = req.body.name;
       timer.status = req.body.status;
       timer.type = req.body.type;
+      timer.title = req.body.title;
+      timer.description = req.body.description;
       timer.created = timer.created;
       timer.expiration = timer.expiration;
       timer.currentTime = req.body.currentTime;
