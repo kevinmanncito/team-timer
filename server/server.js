@@ -3,7 +3,10 @@ var express       = require('express'),
     server        = require('http').createServer(app),
     io            = require('socket.io').listen(server),
     path          = require('path'),
-    bodyParser    = require('body-parser');
+    bodyParser    = require('body-parser'),
+    morgan        = require('morgan'),
+    cookieParser  = require('cookie-parser'),
+    session       = require('express-session');
 
 // all environments
 app.set('port', process.env.PORT || 3000);
