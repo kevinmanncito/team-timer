@@ -22,7 +22,7 @@ router.post('/rest/tokens', function(req, res) {
     }
     var expires = Moment().add(7, 'days').valueOf();
     var token = jwt.encode({
-      iss: user.id,
+      user: user.id,
       exp: expires
     }, app.get('jwtTokenSecret'));
     res.json({

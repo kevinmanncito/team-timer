@@ -67,9 +67,9 @@ if (app.get('env') === 'development') {
 var timerRouter = require('./app/routers/timer');
 var userRouter = require('./app/routers/user');
 var tokenRouter = require('./app/routers/token');
+app.use('/', tokenRouter);
 app.use('/', timerRouter);
 app.use('/', userRouter);
-app.use('/', tokenRouter);
 
 // Serve up the index.html file for our angular app
 app.get('/', function(req, res) {
