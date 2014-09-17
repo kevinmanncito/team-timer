@@ -1,12 +1,15 @@
-var path    = require('path'),
-    Moment  = require('moment'),
-    User    = require('../models/User'),
-    _       = require('underscore'),
-    express = require('express'),
-    router  = express.Router();
+var path            = require('path'),
+    Moment          = require('moment'),
+    User            = require('../models/User'),
+    _               = require('underscore'),
+    express         = require('express'),
+    isAuthenticated = require('../config/auth'),
+    router          = express.Router();
 
-router.get('/rest/users', function(req, res) {
-  User.find(function(err, users) {
+router.use(isAuthenticated);
+
+router.get('/rest/users', function (req, res) {
+  User.find(function (err, users) {
     if (err) {
       res.send(err);
     }
@@ -14,8 +17,8 @@ router.get('/rest/users', function(req, res) {
   });
 });
 
-router.get('/rest/users/:id', function(req, res) {
-  User.find({'_id': req.params.id}, function(err, user) {
+router.get('/rest/users/:id', function (req, res) {
+  User.find({'_id': req.params.id}, function (err, user) {
     if (err) {
       res.send(err);
     }
@@ -23,20 +26,36 @@ router.get('/rest/users/:id', function(req, res) {
   });
 });
 
-router.post('/rest/users', function(req, res) {
-  User.create({
-    username: req.body.username,
-    password: req.body.password
-  }, function(err, user) {
+router.post('/rest/users', function (req, res) {
+  var email = req.body.email;
+  var password = req.body.password;
+  User.findOne({email: email}, function (err, user) {
     if (err) {
+      res.status(400);
       res.send(err);
     }
-    res.json(user);
+    if (user) {
+      res.status(400);
+      res.send("User with " + email + " already exists");
+    }
+    else {
+      var newUser = User();
+      newUser.email = email;
+      newUser.password = newUser.generateHash(password);
+      newUser.save(function (err) {
+        if (err) {
+          res.status(400);
+          res.send(err);
+        }
+        res.status(201);
+        res.json(newUser);
+      });
+    }
   });
 });
 
-router.post('/rest/users/:id', function(req, res) {
-  User.findOne({'_id': req.params.id}, function(err, user) {
+router.post('/rest/users/:id', function (req, res) {
+  User.findOne({'_id': req.params.id}, function (err, user) {
     if (err) {
       res.send(err);
     }
@@ -48,8 +67,8 @@ router.post('/rest/users/:id', function(req, res) {
   });
 });
 
-router.delete('/rest/users/:id', function(req, res) {
-  User.findOne({'_id': req.params.id}, function(err, user) {
+router.delete('/rest/users/:id', function (req, res) {
+  User.findOne({'_id': req.params.id}, function (err, user) {
     if (err) {
       res.send(err);
     }

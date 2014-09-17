@@ -27,7 +27,7 @@ module.exports = function ( grunt ) {
   /**
    * Load our server config file
    */
-  var serverConfig = require('../server/config/config.js')(grunt.option('env_state'));
+  var serverConfig = require('../server/app/config/bootstrap.js')(grunt.option('env_state'));
 
   /**
    * This is the configuration object Grunt uses to give each plugin its

@@ -1,12 +1,14 @@
 var express       = require('express'),
-    app           = express(),
+    app           = module.exports = express(), // Allow app to be required in other
+                                                // modules. for example: 
+                                                // var app = require(../../server.js);
     server        = require('http').createServer(app),
     io            = require('socket.io').listen(server),
     path          = require('path'),
     bodyParser    = require('body-parser'),
     morgan        = require('morgan'),
-    cookieParser  = require('cookie-parser'),
-    session       = require('express-session');
+    jwt           = require('jwt-simple'),
+    cookieParser  = require('cookie-parser');
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -15,6 +17,9 @@ app.use(bodyParser.json());       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({
   extended: true
 }));
+app.use(morgan('dev'));
+app.use(cookieParser());
+app.set('jwtTokenSecret', 'supersecrettimerstring120belziwkdllhi241h');
 
 // Production headers
 if (app.get('env') === 'production') {
@@ -30,7 +35,7 @@ if (app.get('env') === 'production') {
 
     // Set to true if you need the website to include cookies in the requests sent
     // to the API (e.g. in case you use sessions)
-    // res.setHeader('Access-Control-Allow-Credentials', true);
+    res.setHeader('Access-Control-Allow-Credentials', true);
 
     // Pass to next layer of middleware
     next();
@@ -51,22 +56,20 @@ if (app.get('env') === 'development') {
 
     // Set to true if you need the website to include cookies in the requests sent
     // to the API (e.g. in case you use sessions)
-    // res.setHeader('Access-Control-Allow-Credentials', true);
+    res.setHeader('Access-Control-Allow-Credentials', true);
 
     // Pass to next layer of middleware
     next();
   });
 }
 
-// routes
-// Express 3 way of routes
-// require('./app/routes')(app);
-
 // Express 4 way of routes
 var timerRouter = require('./app/routers/timer');
 var userRouter = require('./app/routers/user');
+var tokenRouter = require('./app/routers/token');
 app.use('/', timerRouter);
 app.use('/', userRouter);
+app.use('/', tokenRouter);
 
 // Serve up the index.html file for our angular app
 app.get('/', function(req, res) {
@@ -85,5 +88,4 @@ server.listen(app.get('port'), function(){
 });
 // ------------------------------------------------------------
 
-// Not sure what this is for...
-// exports = module.exports = app;
+

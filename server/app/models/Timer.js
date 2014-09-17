@@ -1,6 +1,6 @@
 var mongoose = require('mongoose'),
     path     = require('path'),
-    database = require('../../config/database'),
+    database = require('../config/database'),
     Schema   = mongoose.Schema;
 
 var timerSchema = new Schema({

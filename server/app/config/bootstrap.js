@@ -3,7 +3,7 @@ module.exports = function (env) {
   var config = {};
 
   /******************************************
-           Put Common Settings Here
+           Bootstraped data config
    ******************************************/
 
   config.api_version = 'v0.1';
@@ -38,22 +38,6 @@ module.exports = function (env) {
       config.port = 8002;
       config.static_web = '/static/';
       config.app_dir = 'bin/';
-    break;
-    case 'staging':
-      config.client.api_root = '//ia3.staging3.thegameagency.com/rest/' + config.api_version + '/';
-      config.client.campaign_set = 2;
-      config.client.campaign = 4; // This instance will support CAMPAIGN 4
-      config.client.asset_root = '//ia3.staging3.thegameagency.com/assets/';
-      config.client.static_root = '/static/';
-      config.client.ga = {
-        id: 'UA-50564233-2',
-        cookieDomain: 'cte.staging3.thegameagency.com',
-        cookieName: 'cte',
-        cookieExpires: 20000
-      };
-      config.port = 8010;
-      config.static_web = '/static/';
-      config.app_dir = 'build/';
     break;
     case 'development':
       config.client.staticRoot = '/static/';
