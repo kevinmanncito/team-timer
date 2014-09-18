@@ -6,7 +6,7 @@ var path    = require('path'),
     jwt     = require('jwt-simple'),
     router  = express.Router();
 
-router.post('/rest/tokens', function(req, res) {
+router.post('/tokens', function(req, res) {
   if (!req.body.email || !req.body.password) {
     res.send(401);
   }

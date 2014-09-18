@@ -8,7 +8,7 @@ var path            = require('path'),
 
 router.use(isAuthenticated);
 
-router.get('/rest/users', function (req, res) {
+router.get('/users', function (req, res) {
   User.find(function (err, users) {
     if (err) {
       res.send(err);
@@ -17,7 +17,7 @@ router.get('/rest/users', function (req, res) {
   });
 });
 
-router.get('/rest/users/:id', function (req, res) {
+router.get('/users/:id', function (req, res) {
   User.find({'_id': req.params.id}, function (err, user) {
     if (err) {
       res.send(err);
@@ -26,7 +26,7 @@ router.get('/rest/users/:id', function (req, res) {
   });
 });
 
-router.post('/rest/users', function (req, res) {
+router.post('/users', function (req, res) {
   var email = req.body.email;
   var password = req.body.password;
   User.findOne({email: email}, function (err, user) {
@@ -54,7 +54,7 @@ router.post('/rest/users', function (req, res) {
   });
 });
 
-router.post('/rest/users/:id', function (req, res) {
+router.post('/users/:id', function (req, res) {
   User.findOne({'_id': req.params.id}, function (err, user) {
     if (err) {
       res.send(err);
@@ -67,7 +67,7 @@ router.post('/rest/users/:id', function (req, res) {
   });
 });
 
-router.delete('/rest/users/:id', function (req, res) {
+router.delete('/users/:id', function (req, res) {
   User.findOne({'_id': req.params.id}, function (err, user) {
     if (err) {
       res.send(err);

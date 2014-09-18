@@ -63,13 +63,13 @@ if (app.get('env') === 'development') {
   });
 }
 
-// Express 4 way of routes
+// Express 4 routers
 var timerRouter = require('./app/routers/timer');
 var userRouter = require('./app/routers/user');
 var tokenRouter = require('./app/routers/token');
-app.use('/', tokenRouter);
-app.use('/', timerRouter);
-app.use('/', userRouter);
+app.use('/rest', timerRouter);
+app.use('/rest', tokenRouter);
+app.use('/rest', userRouter);
 
 // Serve up the index.html file for our angular app
 app.get('/', function(req, res) {

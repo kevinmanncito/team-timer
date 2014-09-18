@@ -5,7 +5,7 @@ var path    = require('path'),
     express = require('express'),
     router  = express.Router();
 
-router.get('/rest/timers', function(req, res) {
+router.get('/timers', function(req, res) {
   Timer.find(function(err, timers) {
     if (err) {
       res.send(err);
@@ -14,7 +14,7 @@ router.get('/rest/timers', function(req, res) {
   });
 });
 
-router.get('/rest/timers/:id', function(req, res) {
+router.get('/timers/:id', function(req, res) {
   Timer.find({'_id': req.params.id}, function(err, timer) {
     if (err) {
       res.send(err);
@@ -23,7 +23,7 @@ router.get('/rest/timers/:id', function(req, res) {
   });
 });
 
-router.post('/rest/timers', function(req, res) {
+router.post('/timers', function(req, res) {
   Timer.create({
     name: req.body.name,
     description: req.body.description,
@@ -41,7 +41,7 @@ router.post('/rest/timers', function(req, res) {
   });
 });
 
-router.post('/rest/timers/:id', function(req, res) {
+router.post('/timers/:id', function(req, res) {
   Timer.findOne({'_id': req.params.id}, function(err, timer) {
     if (err) {
       res.send(err);
@@ -60,7 +60,7 @@ router.post('/rest/timers/:id', function(req, res) {
   });
 });
 
-router.delete('/rest/timers/:id', function(req, res) {
+router.delete('/timers/:id', function(req, res) {
   Timer.findOne({'_id': req.params.id}, function(err, timer) {
     if (err) {
       res.send(err);
@@ -69,16 +69,5 @@ router.delete('/rest/timers/:id', function(req, res) {
     res.json(timer);
   })
 });
-
-// route middleware to make sure a user is logged in
-function isLoggedIn(req, res, next) {
-
-  // if user is authenticated in the session, carry on 
-  if (req.isAuthenticated())
-    return next();
-
-  // if they aren't redirect them to the home page
-  res.redirect('/');
-}
 
 module.exports = router;
