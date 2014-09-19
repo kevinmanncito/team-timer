@@ -17,7 +17,7 @@ angular.module('rm.data', [])
       return promise;
     };
     this.updateTimer = function(id, data) {
-      var promise = $http.post('/rest/timers/' + id, data);
+      var promise = $http.put('/rest/timers/' + id, data);
       return promise;
     };
     return {

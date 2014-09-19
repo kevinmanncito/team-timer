@@ -12,7 +12,8 @@ var timerSchema = new Schema({
   url: String,
   created: 'Moment',
   expiration: 'Moment',
-  type: String
+  type: String,
+  ownerId: Number
 });
 
 timerSchema.plugin(database.autoIncrement.plugin, 'Timer');

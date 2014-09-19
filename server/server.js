@@ -17,7 +17,6 @@ app.use(bodyParser.json());       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({
   extended: true
 }));
-app.use(morgan('dev'));
 app.use(cookieParser());
 app.set('jwtTokenSecret', 'supersecrettimerstring120belziwkdllhi241h');
 
@@ -44,6 +43,7 @@ if (app.get('env') === 'production') {
 
 // Develelopment headers
 if (app.get('env') === 'development') {
+  app.use(morgan('dev'));
   app.use(function (req, res, next) {
     // Website you wish to allow to connect
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8000/');

@@ -3,7 +3,7 @@ var path            = require('path'),
     User            = require('../models/User'),
     _               = require('underscore'),
     express         = require('express'),
-    isAuthenticated = require('../config/auth'),
+    isAuthenticated = require('../config/auth').isAuthenticated,
     router          = express.Router();
 
 router.use(isAuthenticated);
