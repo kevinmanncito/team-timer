@@ -7,11 +7,13 @@ angular.module('rm.timer', [])
 
 
 .directive('timer', [
-  '$interval', 
+  '$interval',
+  '$state',
   'timerSocket', 
   'Rest', 
 function(
   $interval, 
+  $state,
   timerSocket, 
   Rest
 ) {
@@ -20,20 +22,28 @@ function(
     replace: true,
     restrict: 'E',
     scope: {
-      timerData: '='
+      timerData: '=',
+      isLink: '='
     },
     link: function ($scope, iElement, iAttrs) {
+      $scope.goToTimer = function() {
+        if ($scope.isLink) {
+          $state.go('timer-detail', {timerId: $scope.timerData._id});
+        }
+      };
       if (angular.isDefined($scope.timerData._id)) {
         $scope.socket = timerSocket;
         $scope.socket.on('update'+String($scope.timerData._id), function (data){
           $scope.timerData = data;
           $scope.timeValidator();
         });
-        $scope.updateAndSave = function() {
+      }
+      $scope.updateAndSave = function() {
+        if (angular.isDefined($scope.timerData._id) && angular.isUndefined($scope.isLink)) {
           $scope.socket.emit('change', $scope.timerData);
           Rest.updateTimer($scope.timerData._id, $scope.timerData);
-        };
-      }
+        }
+      };
       // This makes the clock tick
       $interval(function () {
         if ($scope.timerData.status === 'on') {
