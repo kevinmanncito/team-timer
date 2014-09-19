@@ -40,6 +40,7 @@ module.exports = function (env) {
       config.app_dir = 'bin/';
     break;
     case 'development':
+      config.client.urlRoot = 'http://localhost:3000',
       config.client.staticRoot = '/static/';
       config.staticWeb = '/static/';
       config.appDir = 'build/';

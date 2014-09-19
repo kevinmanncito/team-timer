@@ -1,8 +1,8 @@
 angular.module('rm.timer', [])
 
 
-.factory('timerSocket', [function() {
-  return io.connect('http://localhost:3000');
+.factory('timerSocket', ['Info', function(Info) {
+  return io.connect(Info.urlRoot);
 }])
 
 

@@ -15,14 +15,18 @@ angular.module( 'rmTimer', [
 
 .config([
   '$urlRouterProvider',
+  'InfoProvider',
 function (
-  $urlRouterProvider
+  $urlRouterProvider,
+  InfoProvider
 ) {
   $urlRouterProvider.otherwise( '/home' );
+  InfoProvider.urlRoot = TimerConfig.urlRoot;
 }])
 
 
 .run([function () {
+
 }])
 
 
