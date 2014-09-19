@@ -24,6 +24,7 @@ module.exports = function (env) {
 
   switch(env) {
     case 'production':
+      config.client.urlRoot = 'http://kevinrmann.com',
       config.client.staticRoot = '/static/';
       config.staticWeb = '/static/';
       config.appDir = 'build/';
