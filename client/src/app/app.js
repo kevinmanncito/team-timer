@@ -4,12 +4,14 @@ angular.module( 'rmTimer', [
   'ui.router.state',
   'ui.route',
   'btford.socket-io',
+  'ngCookies',
   'rm.data',
   'rm.navbar',
   'rm.timer',
   'rm.timerDetail',
   'rm.timerCreate',
-  'rm.home'
+  'rm.home',
+  'rm.account'
 ])
 
 
@@ -25,8 +27,10 @@ function (
 }])
 
 
-.run([function () {
-
+.run(['$cookies', 'Token', function ($cookies, Token) {
+  if ($cookies.jwt) {
+    Token.setToken($cookies.jwt);
+  }
 }])
 
 

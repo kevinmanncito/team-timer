@@ -19,7 +19,7 @@
   padding-top: 15px;
 }
 .large-banner {
-  height: 125px;
+  height: 225px;
   border-bottom: 1px solid @lightGray;
   margin-bottom: 25px;
 }
@@ -34,7 +34,7 @@ nav {
   width: 100%;
   background-color: @lightGray;
   text-align: center;
-  a {
+  .nav-item {
     display: inline-block;
     background-color: #fff;
     border-radius: 100%;
@@ -42,9 +42,22 @@ nav {
     width: 25px;
     margin: 13px 20px;
   }
-  a.active {
+  .nav-item.active {
     background-image: url('../assets/img/timer.png');
     background-size: cover;
+  }
+  .nav-control {
+    display: inline-block;
+    height: 25px;
+    width: 25px;
+    margin: 13px 20px;
+    background-size: cover;
+  }
+  .left-nav {
+    background-image: url('../assets/img/nav_arrow_left.png');
+  }
+  .right-nav {
+    background-image: url('../assets/img/nav_arrow_right.png');
   }
 }
 

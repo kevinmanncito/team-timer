@@ -1,0 +1,11 @@
+<div class="center">
+  <div class="large-banner">
+    <h2>These are your most recent timers.</h2>
+    <div>
+      <a ui-sref="create-timer" class="btn btn-success">Create Timer</a>
+    </div>
+  </div>
+  <div>
+    <timer ng-repeat="timer in timers" timer-data="timer" is-link="true"></timers>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+<div class="center">
+  <div class="large-banner">
+    <h2>Timers that can be viewed anywhere. Create your own public timer.</h2>
+    <div>
+      <a ui-sref="createTimer" class="btn btn-success">Create Timer</a>
+    </div>
+    <h2>Create an account to make private public timers</h2>
+    <div>
+      <a ui-sref="account" class="btn btn-success">Create Account</a>
+    </div>
+    <h2>See the most recent.</h2>
+  </div>
+  <div>
+    <timer ng-repeat="timer in timers" timer-data="timer" is-link="true"></timers>
+  </div>
+</div>

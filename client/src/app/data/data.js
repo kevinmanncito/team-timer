@@ -12,6 +12,23 @@ angular.module('rm.data', [])
 }])
 
 
+.provider('Token', [function() {
+  this.token = '';
+  this.$get = ['$cookies', '$http', function ($cookies, $http) {
+    return {
+      setToken: function (token) {
+        $cookies.token = token;
+        this.token = token;
+        $http.defaults.headers.common['Authorization'] = 'JWT ' + this.token;
+      },
+      getToken: function () {
+        return this.token;
+      }
+    };
+  }];
+}])
+
+
 .provider('Rest', [function () {
 
   this.$get = ['$q', '$http', function ($q, $http) {

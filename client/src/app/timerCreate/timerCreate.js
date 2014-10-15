@@ -2,7 +2,7 @@ angular.module('rm.timerCreate', [])
 
 
 .config(['$stateProvider', function ($stateProvider) {
-  $stateProvider.state( 'create-timer', {
+  $stateProvider.state( 'createTimer', {
     url: '/create-timer',
     views: {
       'main': {
@@ -27,7 +27,7 @@ angular.module('rm.timerCreate', [])
   $scope.saveTimer = function() {
     $http.post('/rest/timers', $scope.data).then( function(res) {
       console.log(res);
-      $state.go('timer-detail', {timerId: res.data._id});
+      $state.go('timerDetail', {timerId: res.data._id});
     }, function(err) {
       $scope.error = true;
     });

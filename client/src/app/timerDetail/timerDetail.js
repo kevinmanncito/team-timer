@@ -2,7 +2,7 @@ angular.module('rm.timerDetail', [])
 
 
 .config(['$stateProvider', function ($stateProvider) {
-  $stateProvider.state( 'timer-detail', {
+  $stateProvider.state( 'timerDetail', {
     url: '/timer/:timerId',
     views: {
       'main': {

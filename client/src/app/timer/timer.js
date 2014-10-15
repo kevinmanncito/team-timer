@@ -28,7 +28,7 @@ function(
     link: function ($scope, iElement, iAttrs) {
       $scope.goToTimer = function() {
         if ($scope.isLink) {
-          $state.go('timer-detail', {timerId: $scope.timerData._id});
+          $state.go('timerDetail', {timerId: $scope.timerData._id});
         }
       };
       if (angular.isDefined($scope.timerData._id)) {
