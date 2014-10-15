@@ -16,6 +16,7 @@
   height: 50px;
   border-bottom: 1px solid @lightGray;
   margin-bottom: 25px;
+  padding-top: 15px;
 }
 .large-banner {
   height: 125px;
@@ -32,6 +33,19 @@ nav {
   height: 50px;
   width: 100%;
   background-color: @lightGray;
+  text-align: center;
+  a {
+    display: inline-block;
+    background-color: #fff;
+    border-radius: 100%;
+    height: 25px;
+    width: 25px;
+    margin: 13px 20px;
+  }
+  a.active {
+    background-image: url('../assets/img/timer.png');
+    background-size: cover;
+  }
 }
 
 /* Layout container */
