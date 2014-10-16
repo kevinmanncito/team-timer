@@ -45,7 +45,7 @@ function(
         }
       };
       // This makes the clock tick
-      $interval(function () {
+      var tickerLogic = function() {
         if ($scope.timerData.status === 'on') {
           if ($scope.timerData.type === 'up') {
             $scope.timerData.currentTime += 1;
@@ -59,7 +59,8 @@ function(
           }
           $scope.timeValidator();
         }
-      }, 1000);
+      };
+
       $scope.calculateHoursMinutesSeconds = function() {
         var tempTime = $scope.timerData.currentTime;
         $scope.minutes = parseInt($scope.minutes, 10);
@@ -88,8 +89,10 @@ function(
       $scope.togglePlayPause = function() {
         if ($scope.timerData.status === 'on') {
           $scope.timerData.status = 'off';
+          $interval.cancel($scope.ticker);
         } else {
           $scope.timerData.status = 'on';
+          $scope.ticker = $interval(tickerLogic, 1000);
         }
         $scope.updateAndSave();
       };
@@ -120,6 +123,11 @@ function(
         }
         $scope.updateAndSave();
       };
+      $scope.$on('$destroy', function() {
+        // Make sure that the interval is destroyed too
+        $interval.cancel($scope.ticker);
+        $scope.ticker = undefined;
+      });
       $scope.timeValidator();
     }
   };
