@@ -39,12 +39,14 @@ function(
           }
           else {
             $interval.cancel($scope.ticker);
+            $scope.ticker = undefined;
           }
           $scope.timerData = data;
           $scope.timeValidator();
         });
       }
       $scope.updateAndSave = function() {
+        console.log('updating and saving', $scope.timerData.id);
         if (angular.isDefined($scope.timerData._id) && angular.isUndefined($scope.isLink)) {
           $scope.socket.emit('change', $scope.timerData);
           Rest.updateTimer($scope.timerData._id, $scope.timerData);
@@ -96,6 +98,7 @@ function(
         if ($scope.timerData.status === 'on') {
           $scope.timerData.status = 'off';
           $interval.cancel($scope.ticker);
+          $scope.ticker = undefined;
         } else {
           $scope.timerData.status = 'on';
           $scope.ticker = $interval(tickerLogic, 1000);
