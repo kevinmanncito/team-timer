@@ -5,6 +5,7 @@ module.exports = function(io) {
 
     socket.on('change', function (data) {
       // Recieved a change, only sending it out to the correct timers
+      console.log('change:', data);
       socket.broadcast.emit('update'+data._id, data);
     });
 
