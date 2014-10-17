@@ -33,19 +33,19 @@ function(
       };
       if (angular.isDefined($scope.timerData._id)) {
         $scope.socket = timerSocket;
+        $scope.socket.on('update'+String($scope.timerData._id), function (data){
+          if (data.status === 'on') {
+            $scope.ticker = $interval(tickerLogic, 1000);
+          }
+          else {
+            $interval.cancel($scope.ticker);
+            $scope.ticker = undefined;
+          }
+          $scope.timerData = data;
+          $scope.timeValidator();
+          $scope.$apply();
+        });
       }
-      $scope.socket.on('update'+String($scope.timerData._id), function (data){
-        if (data.status === 'on') {
-          $scope.ticker = $interval(tickerLogic, 1000);
-        }
-        else {
-          $interval.cancel($scope.ticker);
-          $scope.ticker = undefined;
-        }
-        $scope.timerData = data;
-        $scope.timeValidator();
-        $scope.$apply();
-      });
       $scope.updateAndSave = function() {
         if (angular.isDefined($scope.timerData._id) && angular.isUndefined($scope.isLink)) {
           $scope.socket.emit('change', $scope.timerData);
