@@ -9,11 +9,13 @@ angular.module('rm.timer', [])
 .directive('timer', [
   '$interval',
   '$state',
+  '$rootScope',
   'timerSocket', 
   'Rest', 
 function(
   $interval, 
   $state,
+  $rootScope,
   timerSocket, 
   Rest
 ) {
@@ -26,34 +28,37 @@ function(
       isLink: '='
     },
     link: function ($scope, iElement, iAttrs) {
-      $scope.goToTimer = function() {
-        if ($scope.isLink) {
-          $state.go('timerDetail', {timerId: $scope.timerData._id});
+      // Initializing the timer stuff.
+      if (angular.isDefined($scope.timerData._id)) {
+        if ($scope.timerData.status === 'on') {
+          if (angular.isUndefined($scope.ticker)) {
+            $scope.startTicking();
+          }
         }
-      };
+        else {
+          $scope.stopTicking();
+        }
+      }
+      else {
+        $scope.stopTicking();
+      }
       if (angular.isDefined($scope.timerData._id)) {
         $scope.socket = timerSocket;
         $scope.socket.on('update'+String($scope.timerData._id), function (data){
           if (data.status === 'on') {
-            $scope.ticker = $interval(tickerLogic, 1000);
+            $scope.startTicking()
           }
           else {
-            $interval.cancel($scope.ticker);
-            $scope.ticker = undefined;
+            $scope.stopTicking()
           }
           $scope.timerData = data;
           $scope.timeValidator();
           $scope.$apply();
         });
       }
-      $scope.updateAndSave = function() {
-        if (angular.isDefined($scope.timerData._id) && angular.isUndefined($scope.isLink)) {
-          $scope.socket.emit('change', $scope.timerData);
-          Rest.updateTimer($scope.timerData._id, $scope.timerData);
-        }
-      };
-      // This makes the clock tick
+
       var tickerLogic = function() {
+        console.log('ticking');
         if ($scope.timerData.status === 'on') {
           if ($scope.timerData.type === 'up') {
             $scope.timerData.currentTime += 1;
@@ -69,6 +74,32 @@ function(
         }
       };
 
+      $scope.goToTimer = function() {
+        if ($scope.isLink) {
+          $state.go('timerDetail', {timerId: $scope.timerData._id});
+        }
+      };
+
+      $scope.startTicking = function() {
+        if (angular.isUndefined($scope.ticker)) {
+          $scope.ticker = $interval(tickerLogic, 1000);
+        }
+      };
+
+      $scope.stopTicking = function() {
+        if (angular.isDefined($scope.ticker)) {
+          $interval.cancel($scope.ticker);
+          $scope.ticker = undefined;
+        }
+      };
+
+      $scope.updateAndSave = function() {
+        if (angular.isDefined($scope.timerData._id) && angular.isUndefined($scope.isLink)) {
+          $scope.socket.emit('change', $scope.timerData);
+          Rest.updateTimer($scope.timerData._id, $scope.timerData);
+        }
+      };
+
       $scope.calculateHoursMinutesSeconds = function() {
         var tempTime = $scope.timerData.currentTime;
         $scope.minutes = parseInt($scope.minutes, 10);
@@ -79,6 +110,7 @@ function(
         tempTime = tempTime - ($scope.minutes*60);
         $scope.seconds = tempTime;
       };
+
       $scope.toggleType = function() {
         if ($scope.timerData.type === 'up') {
           $scope.timerData.type = 'down';
@@ -87,6 +119,7 @@ function(
         }
         $scope.updateAndSave();
       };
+
       $scope.resetTimer = function() {
         $scope.timerData.currentTime = 0;
         $scope.timerData.baseTime = Date.now();
@@ -94,6 +127,7 @@ function(
         $scope.timeValidator();
         $scope.updateAndSave();
       };
+
       $scope.togglePlayPause = function() {
         if ($scope.timerData.status === 'on') {
           $scope.timerData.status = 'off';
@@ -105,6 +139,7 @@ function(
         }
         $scope.updateAndSave();
       };
+
       $scope.timeValidator = function() {
         $scope.calculateHoursMinutesSeconds();
         if (parseInt($scope.minutes, 10) < 10) {
@@ -114,9 +149,11 @@ function(
           $scope.seconds = "0" + String($scope.seconds);
         }
       };
+
       $scope.titleOrDescriptionChange = function() {
         $scope.updateAndSave();
       };
+
       $scope.manualTimeChange = function() {
         $scope.timerData.status = 'off';
         var temp = 0;
@@ -132,11 +169,14 @@ function(
         }
         $scope.updateAndSave();
       };
-      $scope.$on('$destroy', function() {
+
+      $rootScope.$on('$stateChangeStart', 
+        function (event, toState, toParams, fromState, fromParams) { 
         // Make sure that the interval is destroyed too
-        $interval.cancel($scope.ticker);
-        $scope.ticker = undefined;
+        console.log('state change destroying interval');
+        $scope.stopTicking();
       });
+
       $scope.timeValidator();
     }
   };
