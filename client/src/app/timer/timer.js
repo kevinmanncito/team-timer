@@ -28,37 +28,37 @@ function(
       isLink: '='
     },
     link: function ($scope, iElement, iAttrs) {
-      // Initializing the timer stuff.
-      if (angular.isDefined($scope.timerData._id)) {
-        if ($scope.timerData.status === 'on') {
-          if (angular.isUndefined($scope.ticker)) {
+      // Initializing the timer.
+      $scope.ticking = false;
+      $scope.init = function() {
+        if (angular.isDefined($scope.timerData._id)) {
+          if ($scope.timerData.status === 'on') {
             $scope.startTicking();
+          }
+          else {
+            $scope.stopTicking();
           }
         }
         else {
           $scope.stopTicking();
         }
-      }
-      else {
-        $scope.stopTicking();
-      }
-      if (angular.isDefined($scope.timerData._id)) {
-        $scope.socket = timerSocket;
-        $scope.socket.on('update'+String($scope.timerData._id), function (data){
-          if (data.status === 'on') {
-            $scope.startTicking()
-          }
-          else {
-            $scope.stopTicking()
-          }
-          $scope.timerData = data;
-          $scope.timeValidator();
-          $scope.$apply();
-        });
-      }
+        if (angular.isDefined($scope.timerData._id)) {
+          $scope.socket = timerSocket;
+          $scope.socket.on('update'+String($scope.timerData._id), function (data){
+            if (data.status === 'on') {
+              $scope.startTicking();
+            }
+            else {
+              $scope.stopTicking();
+            }
+            $scope.timerData = data;
+            $scope.timeValidator();
+            $scope.$apply();
+          });
+        }
+      };
 
       var tickerLogic = function() {
-        console.log('ticking');
         if ($scope.timerData.status === 'on') {
           if ($scope.timerData.type === 'up') {
             $scope.timerData.currentTime += 1;
@@ -81,16 +81,22 @@ function(
       };
 
       $scope.startTicking = function() {
-        if (angular.isUndefined($scope.ticker)) {
+        if (!$scope.ticking) {
           $scope.ticker = $interval(tickerLogic, 1000);
+          $scope.ticking = true;
         }
       };
 
       $scope.stopTicking = function() {
-        if (angular.isDefined($scope.ticker)) {
+        if ($scope.ticking) {
           $interval.cancel($scope.ticker);
           $scope.ticker = undefined;
+          $scope.ticking = false;
         }
+      };
+
+      $scope.stopListening = function() {
+        $scope.socket.removeAllListeners();
       };
 
       $scope.updateAndSave = function() {
@@ -131,11 +137,10 @@ function(
       $scope.togglePlayPause = function() {
         if ($scope.timerData.status === 'on') {
           $scope.timerData.status = 'off';
-          $interval.cancel($scope.ticker);
-          $scope.ticker = undefined;
+          $scope.stopTicking();
         } else {
           $scope.timerData.status = 'on';
-          $scope.ticker = $interval(tickerLogic, 1000);
+          $scope.startTicking();
         }
         $scope.updateAndSave();
       };
@@ -172,10 +177,17 @@ function(
 
       $rootScope.$on('$stateChangeStart', 
         function (event, toState, toParams, fromState, fromParams) { 
-        // Make sure that the interval is destroyed too
-        console.log('state change destroying interval');
+        // Make sure that the interval and socket are destroyed
         $scope.stopTicking();
+        $scope.stopListening();
       });
+
+      $scope.$on('destroy', function() {
+        $scope.stopTicking();
+        $scope.stopListening();
+      });
+
+      $scope.init();
 
       $scope.timeValidator();
     }
