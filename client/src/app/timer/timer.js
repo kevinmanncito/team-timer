@@ -96,7 +96,9 @@ function(
       };
 
       $scope.stopListening = function() {
-        $scope.socket.removeAllListeners();
+        if (angular.isDefined($scope.socket)) {
+          $scope.socket.removeAllListeners();
+        }
       };
 
       $scope.updateAndSave = function() {

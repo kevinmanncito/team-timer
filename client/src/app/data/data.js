@@ -15,6 +15,7 @@ angular.module('rm.data', [])
 .provider('Token', [function() {
   this.token = '';
   this.$get = ['$cookies', '$http', function ($cookies, $http) {
+    
     return {
       setToken: function (token) {
         $cookies.token = token;
@@ -25,6 +26,7 @@ angular.module('rm.data', [])
         return this.token;
       }
     };
+  
   }];
 }])
 
@@ -32,26 +34,25 @@ angular.module('rm.data', [])
 .provider('Rest', [function () {
 
   this.$get = ['$q', '$http', function ($q, $http) {
-    this.getTimers = function() {
-      var promise = $http.get('/rest/timers').then (function (data) {
-        return data;
-      });
-      return promise;
-    };
-    this.getTimer = function(id) {
-      var promise = $http.get('/rest/timers/' + id).then (function (data) {
-        return data;
-      });
-      return promise;
-    };
-    this.updateTimer = function(id, data) {
-      var promise = $http.put('/rest/timers/' + id, data);
-      return promise;
-    };
+    
     return {
-      getTimers: this.getTimers,
-      getTimer: this.getTimer,
-      updateTimer: this.updateTimer
+      getTimers: function() {
+        var promise = $http.get('/rest/timers').then (function (data) {
+          return data;
+        });
+        return promise;
+      },
+      getTimer: function(id) {
+        var promise = $http.get('/rest/timers/' + id).then (function (data) {
+          return data;
+        });
+        return promise;
+      },
+      updateTimer: function(id, data) {
+        var promise = $http.put('/rest/timers/' + id, data);
+        return promise;
+      }
     };
+
   }];
 }]);
