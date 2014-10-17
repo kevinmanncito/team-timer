@@ -27,6 +27,12 @@ router.post('/users', function (req, res) {
           res.status(400);
           res.send(err);
         }
+        var expires = Moment().add(7, 'days').valueOf();
+        var token = jwt.encode({
+          user: user.id,
+          exp: expires
+        }, app.get('jwtTokenSecret'));
+        newUser.token = token;
         res.status(201);
         res.json(newUser);
       });

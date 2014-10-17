@@ -63,6 +63,12 @@ angular.module('rm.data', [])
           return data;
         });
         return promise;
+      },
+      login: function(data) {
+        var promise = $http.post('/rest/tokens/', data).then(function (data) {
+          return data;
+        });
+        return promise;
       }
     };
 

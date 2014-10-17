@@ -11,25 +11,21 @@ router.post('/tokens', function(req, res) {
     res.send(401);
   }
   User.findOne({email: req.body.email}, function(err, user) {
-    if (err) {
-      res.send(401);
+    if (err || !user.verifyPassword(req.body.password) || !user) {
+      res.status(401).end();
     }
-    if (!user) {
-      res.send(401);
+    else {
+      var expires = Moment().add(7, 'days').valueOf();
+      var token = jwt.encode({
+        user: user.id,
+        exp: expires
+      }, app.get('jwtTokenSecret'));
+      res.json({
+        token: token,
+        expires: expires,
+        user: user.toJSON()
+      });
     }
-    if (!user.verifyPassword(req.body.password)) {
-      res.send(401);
-    }
-    var expires = Moment().add(7, 'days').valueOf();
-    var token = jwt.encode({
-      user: user.id,
-      exp: expires
-    }, app.get('jwtTokenSecret'));
-    res.json({
-      token: token,
-      expires: expires,
-      user: user.toJSON()
-    });
   });
 });
 

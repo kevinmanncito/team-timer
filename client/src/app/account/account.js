@@ -73,4 +73,10 @@ function (
       console.log(res);
     });
   };
+  $scope.login = function() {
+    var data = {'email': $scope.emailLogin, 'password': $scope.passwordLogin};
+    Rest.login(data).then(function (res) {
+      console.log(res);
+    });
+  };
 }]);
