@@ -13,7 +13,7 @@ angular.module( 'rm.home', [])
   });
 
   $stateProvider.state( 'home.public', {
-    url: '',
+    url: '/recent-timers',
     views: {
       "sub": {
         controller: 'HomePublicCtrl',
@@ -28,9 +28,7 @@ angular.module( 'rm.home', [])
   });
 
   $stateProvider.state( 'home.authenticated', {
-    url: '',
-    controller: 'HomeAuthenticatedCtrl',
-    templateUrl: 'home/homeAuthenticated.tpl.html',
+    url: '/dashboard',
     views: {
       "sub": {
         controller: 'HomeAuthenticatedCtrl',

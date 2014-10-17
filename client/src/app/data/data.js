@@ -37,19 +37,31 @@ angular.module('rm.data', [])
     
     return {
       getTimers: function() {
-        var promise = $http.get('/rest/timers').then (function (data) {
+        var promise = $http.get('/rest/timers').then(function (data) {
           return data;
         });
         return promise;
       },
       getTimer: function(id) {
-        var promise = $http.get('/rest/timers/' + id).then (function (data) {
+        var promise = $http.get('/rest/timers/' + id).then(function (data) {
           return data;
         });
         return promise;
       },
       updateTimer: function(id, data) {
         var promise = $http.put('/rest/timers/' + id, data);
+        return promise;
+      },
+      getUsers: function(id, data) {
+        var promise = $http.get('/rest/users/' + id, data).then(function (data) {
+          return data;
+        });
+        return promise;
+      },
+      createUser: function(data) {
+        var promise = $http.post('/rest/users/', data).then(function (data) {
+          return data;
+        });
         return promise;
       }
     };

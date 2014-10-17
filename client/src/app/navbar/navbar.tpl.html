@@ -1,7 +1,7 @@
 <nav>
   <a href="" ng-click="goLeft()" class="nav-control left-nav"></a>
   <a ui-sref="createTimer" class="nav-item" ng-class="{'active': currentState === 'createTimer'}"></a>
-  <a ui-sref="home" class="nav-item" ng-class="{'active': currentState === 'home.public' || currentState === 'home.authenticated'}"></a>
-  <a ui-sref="account" class="nav-item" ng-class="{'active': currentState === 'account'}"></a>
+  <a href="" ng-click="goToState('home')" class="nav-item" ng-class="{'active': currentState === 'home'}"></a>
+  <a href="" ng-click="goToState('account')" class="nav-item" ng-class="{'active': currentState === 'account'}"></a>
   <a href="" ng-click="goRight()" class="nav-control right-nav"></a>
 </nav>

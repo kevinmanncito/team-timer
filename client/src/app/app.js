@@ -14,6 +14,15 @@ angular.module( 'rmTimer', [
   'rm.account'
 ])
 
+.factory('timerSocket', ['Info', function(Info) {
+  return io.connect(Info.urlRoot);
+}])
+
+
+.factory('$moment', ['Info', '$window', function(Info, $window) {
+  return $window.moment;
+}])
+
 
 .config([
   '$urlRouterProvider',

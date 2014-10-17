@@ -1,21 +1,18 @@
 angular.module('rm.timer', [])
 
 
-.factory('timerSocket', ['Info', function(Info) {
-  return io.connect(Info.urlRoot);
-}])
-
-
 .directive('timer', [
   '$interval',
   '$state',
   '$rootScope',
+  '$moment',
   'timerSocket', 
   'Rest', 
 function(
   $interval, 
   $state,
   $rootScope,
+  $moment,
   timerSocket, 
   Rest
 ) {
@@ -38,11 +35,6 @@ function(
           else {
             $scope.stopTicking();
           }
-        }
-        else {
-          $scope.stopTicking();
-        }
-        if (angular.isDefined($scope.timerData._id)) {
           $scope.socket = timerSocket;
           $scope.socket.on('update'+String($scope.timerData._id), function (data){
             if (data.status === 'on') {
@@ -56,11 +48,15 @@ function(
             $scope.$apply();
           });
         }
+        else {
+          $scope.stopTicking();
+        }
       };
 
       var tickerLogic = function() {
         if ($scope.timerData.status === 'on') {
           if ($scope.timerData.type === 'up') {
+            $scope.timerData.currentTime = Math.ceil(($moment() - $scope.timerData.baseTime)/1000) - 2;
             $scope.timerData.currentTime += 1;
           } else {
             $scope.timerData.currentTime -= 1;
@@ -130,7 +126,7 @@ function(
 
       $scope.resetTimer = function() {
         $scope.timerData.currentTime = 0;
-        $scope.timerData.baseTime = Date.now();
+        $scope.timerData.baseTime = $moment();
         $scope.timerData.status = 'off';
         $scope.timeValidator();
         $scope.updateAndSave();
@@ -142,6 +138,8 @@ function(
           $scope.stopTicking();
         } else {
           $scope.timerData.status = 'on';
+          $scope.timerData.baseTime = $moment() - (($scope.timerData.currentTime)*1000);
+          $scope.timeValidator();
           $scope.startTicking();
         }
         $scope.updateAndSave();
@@ -170,9 +168,9 @@ function(
         $scope.timerData.currentTime = temp;
         // Sync the base time with the new current time
         if ($scope.timerData.type = 'up') {
-          $scope.timerData.baseTime = moment().subtract(temp, 'seconds');
+          $scope.timerData.baseTime = $moment().subtract(temp, 'seconds');
         } else {
-          $scope.timerData.baseTime = moment();
+          $scope.timerData.baseTime = $moment();
         }
         $scope.updateAndSave();
       };

@@ -6,26 +6,6 @@ var path            = require('path'),
     isAuthenticated = require('../config/auth').isAuthenticated,
     router          = express.Router();
 
-router.use(isAuthenticated);
-
-router.get('/users', function (req, res) {
-  User.find(function (err, users) {
-    if (err) {
-      res.send(err);
-    }
-    res.json(users);
-  });
-});
-
-router.get('/users/:id', function (req, res) {
-  User.find({'_id': req.params.id}, function (err, user) {
-    if (err) {
-      res.send(err);
-    }
-    res.json(user);
-  });
-});
-
 router.post('/users', function (req, res) {
   var email = req.body.email;
   var password = req.body.password;
@@ -53,6 +33,27 @@ router.post('/users', function (req, res) {
     }
   });
 });
+
+router.use(isAuthenticated);
+
+router.get('/users', function (req, res) {
+  User.find(function (err, users) {
+    if (err) {
+      res.send(err);
+    }
+    res.json(users);
+  });
+});
+
+router.get('/users/:id', function (req, res) {
+  User.find({'_id': req.params.id}, function (err, user) {
+    if (err) {
+      res.send(err);
+    }
+    res.json(user);
+  });
+});
+
 
 router.post('/users/:id', function (req, res) {
   User.findOne({'_id': req.params.id}, function (err, user) {
