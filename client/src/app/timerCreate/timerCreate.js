@@ -14,21 +14,33 @@ angular.module('rm.timerCreate', [])
 }])
 
 
-.controller('CreateTimerCtrl', ['$scope', '$http', '$state', function ($scope, $http, $state) {
+.controller('CreateTimerCtrl', [
+  '$scope', 
+  '$http', 
+  '$state', 
+  '$moment', 
+  'Token',
+function (
+  $scope, 
+  $http, 
+  $state, 
+  $moment,
+  Token
+) {
   $scope.data = {
     name: "Untitled",
     type: "up",
     status: "off",
     description: "",
     currentTime: 0,
-    baseTime: moment(),
-    created: moment()
+    baseTime: $moment(),
+    created: $moment(),
+    user: 0
   };
   $scope.saveTimer = function() {
-    $http.post('/rest/timers', $scope.data).then( function(res) {
-      console.log(res);
+    $http.post('/rest/timers', $scope.data).then(function (res) {
       $state.go('timerDetail', {timerId: res.data._id});
-    }, function(err) {
+    }, function (err) {
       $scope.error = true;
     });
   };

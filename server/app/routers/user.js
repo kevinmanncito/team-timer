@@ -3,6 +3,8 @@ var path            = require('path'),
     User            = require('../models/User'),
     _               = require('underscore'),
     express         = require('express'),
+    jwt             = require('jwt-simple'),
+    app             = require('../../server.js'),
     isAuthenticated = require('../config/auth').isAuthenticated,
     router          = express.Router();
 
@@ -29,18 +31,28 @@ router.post('/users', function (req, res) {
         }
         var expires = Moment().add(7, 'days').valueOf();
         var token = jwt.encode({
-          user: user.id,
+          user: newUser.id,
           exp: expires
         }, app.get('jwtTokenSecret'));
         newUser.token = token;
         res.status(201);
-        res.json(newUser);
+        res.json({user: newUser, token: token});
       });
     }
   });
 });
 
+
 router.use(isAuthenticated);
+
+router.get('/users/0', function (req, res) {
+  User.find({'_id': req.user}, function (err, user) {
+    if (err) {
+      res.send(err);
+    }
+    res.json(user);
+  });
+});
 
 router.get('/users', function (req, res) {
   User.find(function (err, users) {

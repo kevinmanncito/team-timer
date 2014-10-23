@@ -14,12 +14,12 @@ angular.module( 'rmTimer', [
   'rm.account'
 ])
 
-.factory('timerSocket', ['Info', function(Info) {
-  return io.connect(Info.urlRoot);
+.factory('timerSocket', ['Info', '$window', function (Info, $window) {
+  return $window.io.connect(Info.urlRoot);
 }])
 
 
-.factory('$moment', ['Info', '$window', function(Info, $window) {
+.factory('$moment', ['$window', function ($window) {
   return $window.moment;
 }])
 
@@ -36,10 +36,8 @@ function (
 }])
 
 
-.run(['$cookies', 'Token', function ($cookies, Token) {
-  if ($cookies.jwt) {
-    Token.setToken($cookies.jwt);
-  }
+.run(['Token', function (Token) {
+  Token.getToken();
 }])
 
 

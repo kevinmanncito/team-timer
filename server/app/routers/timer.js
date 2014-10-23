@@ -64,7 +64,6 @@ router.get('/timers', function (req, res) {
 
 
 router.put('/timers/:id', function (req, res) {
-  console.log(req.user);
   Timer.findOne({'_id': req.params.id}, function (err, timer) {
     if (err) {
       res.status(400).send(err);

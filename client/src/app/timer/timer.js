@@ -8,13 +8,15 @@ angular.module('rm.timer', [])
   '$moment',
   'timerSocket', 
   'Rest', 
+  'Token',
 function(
   $interval, 
   $state,
   $rootScope,
   $moment,
   timerSocket, 
-  Rest
+  Rest,
+  Token
 ) {
   return {
     templateUrl: 'timer/timer.tpl.html',
@@ -99,6 +101,7 @@ function(
 
       $scope.updateAndSave = function() {
         if (angular.isDefined($scope.timerData._id) && angular.isUndefined($scope.isLink)) {
+          $scope.timerData.token = Token.getToken();
           $scope.socket.emit('change', $scope.timerData);
           Rest.updateTimer($scope.timerData._id, $scope.timerData);
         }

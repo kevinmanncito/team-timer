@@ -14,16 +14,37 @@ angular.module('rm.data', [])
 
 .provider('Token', [function() {
   this.token = '';
-  this.$get = ['$cookies', '$http', function ($cookies, $http) {
+  this.$get = ['$window', '$http', '$state', function ($window, $http, $state) {
     
     return {
       setToken: function (token) {
-        $cookies.token = token;
+        $window.localStorage.token = token;
         this.token = token;
         $http.defaults.headers.common['Authorization'] = 'JWT ' + this.token;
       },
       getToken: function () {
-        return this.token;
+        if (angular.isDefined(this.token)) {
+          return this.token;
+        }
+        else {
+          if (angular.isDefined($window.localStorage.token)) {
+            this.setToken($window.localStorage.token);
+            return this.token;
+          }
+          else {
+            return false;
+          }
+        }
+        return false;
+      },
+      destroyToken: function () {
+        this.token = '';
+        $window.localStorage.removeItem('token');
+        delete $http.defaults.headers.common['Authorization'];
+      },
+      logout: function() {
+        this.destroyToken();
+        $state.go('home.public');
       }
     };
   
@@ -33,8 +54,17 @@ angular.module('rm.data', [])
 
 .provider('Rest', [function () {
 
-  this.$get = ['$q', '$http', function ($q, $http) {
-    
+  this.$get = [
+    '$q', 
+    '$http', 
+    '$state', 
+    'Token', 
+  function (
+    $q, 
+    $http, 
+    $state, 
+    Token
+  ) {
     return {
       getTimers: function() {
         var promise = $http.get('/rest/timers').then(function (data) {
@@ -50,12 +80,6 @@ angular.module('rm.data', [])
       },
       updateTimer: function(id, data) {
         var promise = $http.put('/rest/timers/' + id, data);
-        return promise;
-      },
-      getUsers: function(id, data) {
-        var promise = $http.get('/rest/users/' + id, data).then(function (data) {
-          return data;
-        });
         return promise;
       },
       createUser: function(data) {

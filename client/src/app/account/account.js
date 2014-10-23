@@ -13,7 +13,7 @@ angular.module( 'rm.account', [])
   });
 
   $stateProvider.state( 'account.public', {
-    url: '/public',
+    url: '/sign-up',
     views: {
       "sub": {
         controller: 'AccountPublicCtrl',
@@ -28,17 +28,12 @@ angular.module( 'rm.account', [])
   });
 
   $stateProvider.state( 'account.authenticated', {
-    url: '/authenticated',
+    url: '/settings',
     views: {
       "sub": {
         controller: 'AccountAuthenticatedCtrl',
         templateUrl: 'account/accountAuthenticated.tpl.html'
       }
-    },
-    resolve: {
-      'users': ['Rest', function(Rest) {
-        return Rest.getUsers();
-      }]
     }
   });
 }])
@@ -62,21 +57,44 @@ function (
 }])
 
 
-.controller( 'AccountAuthenticatedCtrl', ['$scope', function ($scope) {
+.controller( 'AccountAuthenticatedCtrl', [
+  '$scope', 
+  '$state', 
+  'Token', 
+function (
+  $scope, 
+  $state, 
+  Token
+) {
+  $scope.logout = function() {
+    Token.logout();
+  };
 }])
 
 
-.controller( 'AccountPublicCtrl', ['$scope', 'Rest', function ($scope, Rest) {
+.controller( 'AccountPublicCtrl', [
+  '$scope',
+  '$state', 
+  'Rest', 
+  'Token', 
+function (
+  $scope, 
+  $state,
+  Rest, 
+  Token
+) {
   $scope.createUser = function() {
     var data = {'email': $scope.email, 'password': $scope.password};
     Rest.createUser(data).then(function (res) {
-      console.log(res);
+      Token.setToken(res.data.token);
+      $state.go('home.authenticated');
     });
   };
   $scope.login = function() {
     var data = {'email': $scope.emailLogin, 'password': $scope.passwordLogin};
     Rest.login(data).then(function (res) {
-      console.log(res);
+      Token.setToken(res.data.token);
+      $state.go('account.authenticated');
     });
   };
 }]);
