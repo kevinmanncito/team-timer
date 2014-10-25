@@ -12,15 +12,14 @@
 
   <script>
   var TimerConfig = {
-    'urlRoot': '<%= config.urlRoot %>'
+    'urlRoot': '<%= config.urlRoot %>',
+    'assetRoot': '<%= config.assetRoot %>'
   };
   </script>
 
 </head>
 <body>
   <navbar></navbar>
-  <div class="container">
-    <div ui-view="main"></div>
-  </div>
+  <div ui-view="main"></div>
 </body>
 </html>

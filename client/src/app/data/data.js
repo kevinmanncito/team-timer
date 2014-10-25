@@ -4,9 +4,11 @@ angular.module('rm.data', [])
 .provider('Info', [function () {
 
   this.$get = [function () {
-    this.urlRoot = '';
+    this.urlRoot = TimerConfig.urlRoot;
+    this.assetRoot = TimerConfig.assetRoot;
     return {
-      urlRoot: this.urlRoot
+      urlRoot: this.urlRoot,
+      assetRoot: this.assetRoot
     };
   }];
 }])

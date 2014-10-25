@@ -12,24 +12,59 @@
 .pull-right {
   float: right;
 }
-.small-banner {
-  min-height: 50px;
-  border-bottom: 1px solid @lightGray;
-  padding-bottom: 25px;
-  padding-top: 15px;
-  margin-bottom: 25px;
+.orange {
+  background-color: @flatOrange; 
 }
-.medium-banner {
-  min-height: 150px;
-  border-bottom: 1px solid @lightGray;
-  padding-bottom: 25px;
-  padding-top: 15px;
-  margin-bottom: 25px;
+.purple {
+  background-color: @flatPurple;
 }
-.large-banner {
-  min-height: 225px;
+.green {
+  background-color: @green;
+}
+.banner {
+  background-color: white;
+  min-height: 300px;
+  max-width: 966px;
+  margin: 50px auto 0px auto;
+  .tile-wrapper {
+    vertical-align: middle;
+    display: inline-block;
+    width: 33%;
+    height: 300px;
+    .tile {
+      color: @clouds;
+      padding: 45px 10px 10px 10px;
+      height: 70px;
+    }
+    img {
+      height: 100px;
+      width: auto;
+    }
+  }
+  @media screen and (max-width: 890px) {
+    .tile-wrapper {
+      width: 100%;
+      img {
+        height: 125px;
+        margin: 0px 15px;
+      }
+      .tile {
+        padding-top: 35px;
+      }
+    }
+  }
+}
+.banner-wrapper {
+  min-height: 300px;
+  background-color: @flatWetAsphalt;
   border-bottom: 1px solid @lightGray;
-  margin-bottom: 25px;
+}
+/* Layout container */
+.container {
+  background-color: white;
+  min-height: 300px;
+  max-width: 966px;
+  margin: 50px auto 0px auto;
 }
 input {
   padding-top: 10px;
@@ -74,12 +109,6 @@ nav {
   }
 }
 
-/* Layout container */
-.container {
-  min-height: 300px;
-  max-width: 966px;
-  margin: 65px auto 0px auto;
-}
 
 /* buttons */
 .btn {
@@ -129,6 +158,18 @@ nav {
 .btn-success:active {
   box-shadow: 0px 1px 0px 0px @darkGreen;
 }
+
+.btn-dark {
+  background-color: @flatWetAsphalt;
+  box-shadow: 0px 3px 0px 0px @flatMidnightBlue;
+}
+.btn-dark:hover {
+  background-color: @flatMidnightBlue;
+}
+.btn-dark:active {
+  box-shadow: 0px 1px 0px 0px @flatMidnightBlue;
+}
+
 
 .timer {
   display: inline-block;

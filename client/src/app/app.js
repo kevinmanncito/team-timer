@@ -32,7 +32,6 @@ function (
   InfoProvider
 ) {
   $urlRouterProvider.otherwise( '/home' );
-  InfoProvider.urlRoot = TimerConfig.urlRoot;
 }])
 
 

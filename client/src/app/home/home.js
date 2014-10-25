@@ -59,6 +59,17 @@ angular.module( 'rm.home', [])
 }])
 
 
-.controller( 'HomePublicCtrl', ['$scope', 'Token', 'timers', function ($scope, Token, timers) {
+.controller( 'HomePublicCtrl', [
+  '$scope', 
+  'Info', 
+  'Token', 
+  'timers', 
+function (
+  $scope, 
+  Info, 
+  Token, 
+  timers
+) {
+  $scope.assetRoot = Info.assetRoot;
   $scope.timers = timers.data;
 }]);

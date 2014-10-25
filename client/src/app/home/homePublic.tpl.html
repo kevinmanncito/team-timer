@@ -1,16 +1,46 @@
 <div class="center">
-  <div class="large-banner">
-    <h2>Timers that can be viewed anywhere. Create your own public timer.</h2>
-    <div>
-      <a ui-sref="createTimer" class="btn btn-success">Create Timer</a>
+  <div class="banner-wrapper">
+    <div class="banner">
+<!--       <h2>Timers that can be viewed anywhere. Create your own public timer.</h2>
+      <div>
+        <a ui-sref="createTimer" class="btn btn-success">Create Timer</a>
+      </div>
+      <h2>Create an account to make private public timers</h2>
+      <div>
+        <a ui-sref="account" class="btn btn-success">Create Account</a>
+      </div>
+      <h2>See the most recent.</h2> -->
+      <div class="tile-wrapper orange">
+        <h3 class="tile">
+          Welcome to GroupWatch. One timer that everyone can see and use.
+        </h3>
+        <div>
+          <img class="icon" ng-src="{{assetRoot}}img/timer2.png" alt="stopwatch">
+          <img class="icon" ng-src="{{assetRoot}}img/users6.png" alt="people">
+        </div>
+      </div>
+      <div class="tile-wrapper green">
+        <h3 class="tile">
+          Create an account to make timers that only you control, but everyone can see.
+        </h3>
+        <div>
+          <img class="icon" ng-src="{{assetRoot}}img/create1.png" alt="stopwatch">
+        </div>
+      </div>
+      <div class="tile-wrapper purple">
+        <h3 class="tile">
+          Browse the most recent timers or make a public timer.
+        </h3>
+        <div>
+          <img class="icon" ng-src="{{assetRoot}}img/browser8.png" alt="stopwatch">
+          <img class="icon" ng-src="{{assetRoot}}img/add1.png" alt="stopwatch">
+        </div>
+      </div>
     </div>
-    <h2>Create an account to make private public timers</h2>
-    <div>
-      <a ui-sref="account" class="btn btn-success">Create Account</a>
-    </div>
-    <h2>See the most recent.</h2>
   </div>
-  <div class="center-div">
-    <timer ng-repeat="timer in timers" timer-data="timer" is-link="true"></timers>
+  <div class="container">
+    <div class="center-div">
+      <timer ng-repeat="timer in timers" timer-data="timer" is-link="true"></timers>
+    </div>
   </div>
 </div>

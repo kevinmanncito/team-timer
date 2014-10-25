@@ -26,12 +26,14 @@ module.exports = function (env) {
     case 'production':
       config.client.urlRoot = 'http://kevinrmann.com',
       config.client.staticRoot = '/static/';
+      config.client.assetRoot = '/static/assets/';
       config.staticWeb = '/static/';
       config.appDir = 'build/';
     break;
     case 'development':
       config.client.urlRoot = 'http://localhost:3000',
       config.client.staticRoot = '/static/';
+      config.client.assetRoot = '/static/assets/';
       config.staticWeb = '/static/';
       config.appDir = 'build/';
     break;
