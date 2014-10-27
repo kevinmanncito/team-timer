@@ -1,20 +1,24 @@
 <div class="center">
-  <div class="banner">
-    <div class="container">
-      <h2>Sign up to have timers that only you control.</h2>
-      <input type="text" ng-model="email" placeholder="Email">
-      <input type="password" ng-model="password" placeholder="Password" >
-      <div class="btn-wrapper">
-        <a href="" ng-click="createUser()" class="btn btn-success">Sign Up</a>
+
+  <div class="banner-wrapper">
+    <div class="banner">
+      <div class="tile-wrapper orange">
+        <h3 class="tile">Sign up to have timers that only you control.</h3>
+        <input type="text" ng-model="email" placeholder="Email">
+        <input type="password" ng-model="password" placeholder="Password" >
+        <div class="btn-wrapper">
+          <a href="" ng-click="createUser()" class="btn btn-success">Sign Up</a>
+        </div>
+      </div>
+      <div class="tile-wrapper purple">
+        <h3 class="tile">Already have an account? Login to use your timers</h3>
+        <input type="text" ng-model="emailLogin" placeholder="Email">
+        <input type="password" ng-model="passwordLogin" placeholder="Password" >
+        <div class="btn-wrapper">
+          <a href="" ng-click="login()" class="btn btn-success">Login</a>
+        </div>
       </div>
     </div>
   </div>
 
-  <div>
-    <input type="text" ng-model="emailLogin" placeholder="Email">
-    <input type="password" ng-model="passwordLogin" placeholder="Password" >
-    <div class="btn-wrapper">
-      <a href="" ng-click="login()" class="btn btn-success">Login</a>
-    </div>
-  </div>
 </div>

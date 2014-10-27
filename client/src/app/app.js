@@ -40,5 +40,6 @@ function (
 }])
 
 
-.controller('AppCtrl', [function () {
+.controller('AppCtrl', ['$rootScope', 'Info', function ($rootScope, Info) {
+  $rootScope.assetRoot = Info.assetRoot;
 }]);
