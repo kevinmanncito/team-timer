@@ -170,7 +170,7 @@ function(
         temp += parseInt($scope.hours, 10)*3600;
         $scope.timerData.currentTime = temp;
         // Sync the base time with the new current time
-        if ($scope.timerData.type = 'up') {
+        if ($scope.timerData.type === 'up') {
           $scope.timerData.baseTime = $moment().subtract(temp, 'seconds');
         } else {
           $scope.timerData.baseTime = $moment();

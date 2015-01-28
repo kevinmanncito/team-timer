@@ -1,5 +1,4 @@
-@import (less) "normalize.css";
-@import (less) "variables.less";
+@import 'variables';
 
 /* Global styles */
 .center {
@@ -13,13 +12,13 @@
   float: right;
 }
 .orange {
-  background-color: @flatOrange; 
+  background-color: $flatOrange; 
 }
 .purple {
-  background-color: @flatPurple;
+  background-color: $flatPurple;
 }
 .green {
-  background-color: @green;
+  background-color: $green;
 }
 .banner {
   background-color: white;
@@ -32,7 +31,7 @@
     width: 33%;
     height: 300px;
     .tile {
-      color: @clouds;
+      color: $clouds;
       padding: 45px 10px 10px 10px;
       height: 70px;
     }
@@ -56,8 +55,8 @@
 }
 .banner-wrapper {
   min-height: 300px;
-  background-color: @flatWetAsphalt;
-  border-bottom: 1px solid @lightGray;
+  background-color: $flatWetAsphalt;
+  border-bottom: 1px solid $lightGray;
 }
 /* Layout container */
 .container {
@@ -81,7 +80,7 @@ nav {
   left: 0px;
   height: 50px;
   width: 100%;
-  background-color: @lightGray;
+  background-color: $lightGray;
   text-align: center;
   a {
     height: 25px;
@@ -149,25 +148,25 @@ nav {
   color: #fff;
 }
 .btn-success {
-  background-color: @green;
-  box-shadow: 0px 3px 0px 0px @darkGreen;
+  background-color: $green;
+  box-shadow: 0px 3px 0px 0px $darkGreen;
 }
 .btn-success:hover {
-  background-color: @lightGreen;
+  background-color: $lightGreen;
 }
 .btn-success:active {
-  box-shadow: 0px 1px 0px 0px @darkGreen;
+  box-shadow: 0px 1px 0px 0px $darkGreen;
 }
 
 .btn-dark {
-  background-color: @flatWetAsphalt;
-  box-shadow: 0px 3px 0px 0px @flatMidnightBlue;
+  background-color: $flatWetAsphalt;
+  box-shadow: 0px 3px 0px 0px $flatMidnightBlue;
 }
 .btn-dark:hover {
-  background-color: @flatMidnightBlue;
+  background-color: $flatMidnightBlue;
 }
 .btn-dark:active {
-  box-shadow: 0px 1px 0px 0px @flatMidnightBlue;
+  box-shadow: 0px 1px 0px 0px $flatMidnightBlue;
 }
 
 
@@ -176,7 +175,7 @@ nav {
   margin: 10px;
   width: 300px;
   min-height: 332px;
-  border: 1px solid @lightGray;
+  border: 1px solid $lightGray;
   border-radius: 2px;
   -moz-box-shadow:    0 0 10px #000000;
   -webkit-box-shadow: 0 0 10px #000000;
@@ -193,7 +192,7 @@ nav {
     }
     min-height: 40px;
     padding: 2px;
-    outline: 1px solid @lightGray;
+    outline: 1px solid $lightGray;
   }
   .description {
     textarea {
@@ -204,7 +203,7 @@ nav {
       width: 100%;
     }
     padding: 2px;
-    outline: 1px solid @lightGray;
+    outline: 1px solid $lightGray;
   }
   .current-time {
     min-height: 65px;
@@ -235,7 +234,7 @@ nav {
     }
   }
   .controls {
-    border-top: 1px solid @lightGray;
+    border-top: 1px solid $lightGray;
     .control {
       cursor: pointer;
       min-height: 65px;

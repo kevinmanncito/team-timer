@@ -3,15 +3,12 @@ module.exports = function (env) {
   var config = {};
 
   /******************************************
-           Bootstraped data config
+           Bootstrapped data config
    ******************************************/
-
-  config.api_version = 'v0.1';
 
   // WARNING:  Anything put into client is visible in the browser
   // ONLY ADD STUFF HERE YOU WANT EVERYONE TO SEE!!!
   config.client = {};
-
 
 
   /******************************************
@@ -19,18 +16,18 @@ module.exports = function (env) {
    ******************************************/
 
   if (typeof env == 'undefined') {
-    env = process.env.ENV_STATE;
+    env = process.env.ENV;
   }
 
   switch(env) {
-    case 'production':
+    case 'prod':
       config.client.urlRoot = 'http://kevinrmann.com',
       config.client.staticRoot = '/static/';
       config.client.assetRoot = '/static/assets/';
       config.staticWeb = '/static/';
       config.appDir = 'build/';
     break;
-    case 'development':
+    case 'dev':
       config.client.urlRoot = 'http://localhost:3000',
       config.client.staticRoot = '/static/';
       config.client.assetRoot = '/static/assets/';

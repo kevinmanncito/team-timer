@@ -1,24 +1,30 @@
 {
-  "name": "lk-angular-scaffold",
-  "devDependencies": {
-    "angular": "~1.2.22",
-    "angular-ui-router": "~0.2.0",
-    "angular-ui-utils": "~0.0.4",
-    "angular-cookies": "~1.2.0",
-    "lodash": "2.4.1",
-    "angular-rest-models": "git://github.com/cedub/angular-models.git#0.3.5"
-  },
+  "name": "team-timer",
+  "version": "0.2.0",
+  "authors": [
+    "Kevin Mann <kevinrmann@gmail.com"
+  ],
+  "description": "The Group Watch platform. Community timers.",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "vendor",
+    "test",
+    "tests"
+  ],
   "dependencies": {
-    "normalize-css": "~3.0.1",
-    "angular-moment": "~0.8.0",
-    "moment": "~2.8.2",
+    "angular": "~1.3.4",
+    "angular-ui-router": "~0.2.13",
+    "angular-ui-utils": "~0.2.1",
+    "angular-mocks": "~1.3.9",
+    "lodash": "~2.4.1",
+    "normalize-css": "~3.0.2",
+    "moment": "~2.9.0",
     "angular-socket-io": "~0.6.0",
     "socket.io-client": "~0.9.x",
-    "socket.io": "~1.0.6",
-    "angular-cookies": "~1.3.0"
-  },
-  "resolutions": {
-    "angular": "1.3.0",
-    "angular-cookies": "~1.3.0"
+    "socket.io": "~1.0.6"
   }
 }

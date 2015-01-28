@@ -22,7 +22,7 @@ angular.module('rm.data', [])
       setToken: function (token) {
         $window.localStorage.token = token;
         this.token = token;
-        $http.defaults.headers.common['Authorization'] = 'JWT ' + this.token;
+        $http.defaults.headers.common.Authorization = 'JWT ' + this.token;
       },
       getToken: function () {
         if (angular.isDefined(this.token)) {
@@ -42,7 +42,7 @@ angular.module('rm.data', [])
       destroyToken: function () {
         this.token = '';
         $window.localStorage.removeItem('token');
-        delete $http.defaults.headers.common['Authorization'];
+        delete $http.defaults.headers.common.Authorization;
       },
       logout: function() {
         this.destroyToken();
