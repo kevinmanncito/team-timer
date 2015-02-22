@@ -1,43 +1,45 @@
-angular.module( 'rmTimer', [
-  'templates-app',
-  'templates-common',
-  'ui.router.state',
-  'btford.socket-io',
-  'rm.data',
-  'rm.navbar',
-  'rm.timer',
-  'rm.timerDetail',
-  'rm.timerCreate',
-  'rm.home',
-  'rm.account'
-])
+(function() {
+  angular.module( 'rmTimer', [
+    'templates-app',
+    'templates-common',
+    'ui.router.state',
+    'btford.socket-io',
+    'rm.data',
+    'rm.navbar',
+    'rm.timer',
+    'rm.timerDetail',
+    'rm.timerCreate',
+    'rm.home',
+    'rm.account'
+  ])
 
-.factory('timerSocket', ['Info', '$window', function (Info, $window) {
-  return $window.io.connect(Info.urlRoot);
-}])
-
-
-.factory('$moment', ['$window', function ($window) {
-  return $window.moment;
-}])
+  .factory('timerSocket', ['Info', '$window', function (Info, $window) {
+    return $window.io.connect(Info.urlRoot);
+  }])
 
 
-.config([
-  '$urlRouterProvider',
-  'InfoProvider',
-function (
-  $urlRouterProvider,
-  InfoProvider
-) {
-  $urlRouterProvider.otherwise( '/home' );
-}])
+  .factory('$moment', ['$window', function ($window) {
+    return $window.moment;
+  }])
 
 
-.run(['Token', function (Token) {
-  Token.getToken();
-}])
+  .config([
+    '$urlRouterProvider',
+    'InfoProvider',
+  function (
+    $urlRouterProvider,
+    InfoProvider
+  ) {
+    $urlRouterProvider.otherwise( '/home' );
+  }])
 
 
-.controller('AppCtrl', ['$rootScope', 'Info', function ($rootScope, Info) {
-  $rootScope.assetRoot = Info.assetRoot;
-}]);
+  .run(['Token', function (Token) {
+    Token.getToken();
+  }])
+
+
+  .controller('AppCtrl', ['$rootScope', 'Info', function ($rootScope, Info) {
+    $rootScope.assetRoot = Info.assetRoot;
+  }]);
+}());

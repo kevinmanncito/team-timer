@@ -6,14 +6,16 @@
           These are your timers. Create another?
         </h3>
         <div>
-          <img class="icon" ng-src="{{assetRoot}}img/add.png" alt="stopwatch">
+          <a ui-sref="createTimer">
+            <img class="icon" ng-src="{{assetRoot}}img/add.png" alt="stopwatch">
+          </a>
         </div>
       </div>
     </div>
   </div>
   <div class="container">
     <div class="center-div">
-      <timer ng-repeat="timer in timers" timer-data="timer" is-link="true"></timers>
+      <timer ng-repeat="timer in timers" timer-data="timer"></timers>
     </div>
   </div>
 </div>

@@ -11,6 +11,15 @@ module.exports = function (env) {
   config.client = {};
 
 
+  // Default to the dev settings so I don't have to type
+  // --env_state=dev every single time
+  config.client.urlRoot = 'http://localhost:3000',
+  config.client.staticRoot = '/static/';
+  config.client.assetRoot = '/static/assets/';
+  config.staticWeb = '/static/';
+  config.appDir = 'build/';
+
+
   /******************************************
      Put Environment Specific Settings Here
    ******************************************/

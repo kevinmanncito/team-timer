@@ -1,4 +1,4 @@
-<div class="timer" ng-click="goToTimer()">
+<div class="timer">
   <div class="title">
     <input ng-model="timerData.name" ng-change="titleOrDescriptionChange()" type="text" placeholder="Title">
   </div>
@@ -17,5 +17,10 @@
   <div class="switch"></div>
   <div class="description">
     <textarea ng-model="timerData.description" ng-change="titleOrDescriptionChange()" rows="8" placeholder="Description"></textarea>
+  </div>
+  <div ng-if="timerData._id">
+    <p>
+      Link: <a class="link" ui-sref="timerDetail({timerId: timerData._id})">{{ rootUrl }}/#/timer/{{ timerData._id }}</a>
+    </p>
   </div>
 </div>

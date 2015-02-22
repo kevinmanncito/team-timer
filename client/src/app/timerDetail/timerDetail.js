@@ -1,24 +1,26 @@
-angular.module('rm.timerDetail', [])
+(function() {
+  angular.module('rm.timerDetail', [])
 
 
-.config(['$stateProvider', function ($stateProvider) {
-  $stateProvider.state( 'timerDetail', {
-    url: '/timer/:timerId',
-    views: {
-      'main': {
-        controller: 'TimerDetailCtrl',
-        templateUrl: 'timerDetail/timerDetail.tpl.html'
+  .config(['$stateProvider', function ($stateProvider) {
+    $stateProvider.state( 'timerDetail', {
+      url: '/timer/:timerId',
+      views: {
+        'main': {
+          controller: 'TimerDetailCtrl',
+          templateUrl: 'timerDetail/timerDetail.tpl.html'
+        }
+      },
+      resolve: {
+        'timer': ['Rest', '$stateParams', function(Rest, $stateParams) {
+          return Rest.getTimer($stateParams.timerId);
+        }]
       }
-    },
-    resolve: {
-      'timer': ['Rest', '$stateParams', function(Rest, $stateParams) {
-        return Rest.getTimer($stateParams.timerId);
-      }]
-    }
-  });
-}])
+    });
+  }])
 
 
-.controller('TimerDetailCtrl', ['$scope', 'timer', function ($scope, timer) {
-  $scope.timer = timer.data[0];
-}]);
+  .controller('TimerDetailCtrl', ['$scope', 'timer', function ($scope, timer) {
+    $scope.timer = timer.data[0];
+  }]);
+}());
