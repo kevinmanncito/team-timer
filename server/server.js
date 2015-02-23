@@ -24,7 +24,7 @@ app.set('jwtTokenSecret', 'supersecrettimerstring120belziwkdllhi241h');
 if (app.get('env') === 'production') {
   app.use(function (req, res, next) {
     // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'http://kevinrmann.com/');
+    res.setHeader('Access-Control-Allow-Origin', 'http://groupwatch.pw/');
 
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
