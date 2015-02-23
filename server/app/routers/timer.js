@@ -98,9 +98,18 @@ router.delete('/timers/:id', function (req, res) {
   Timer.findOne({'_id': req.params.id}, function (err, timer) {
     if (err) {
       res.send(err);
+    } else {
+      if (_.isUndefined(timer.ownerId)) {
+        timer.ownerId = 0;
+      }
+      // Don't let the wrong people change the wrong timer
+      if (parseInt(req.user) !== parseInt(timer.ownerId) && parseInt(timer.ownerId) !== 0) {
+        res.status(401).send("Not allowed");
+      } else {
+        timer.remove();
+        res.json(timer);
+      }
     }
-    timer.remove();
-    res.json(timer);
   })
 });
 

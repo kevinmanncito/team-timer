@@ -43,7 +43,6 @@ if (app.get('env') === 'production') {
 
 // Develelopment headers
 if (app.get('env') === 'development') {
-  console.log('allowing this stuff');
   app.use(morgan('dev'));
   app.use(function (req, res, next) {
     // Website you wish to allow to connect
