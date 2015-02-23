@@ -30,7 +30,7 @@ module.exports = function (env) {
 
   switch(env) {
     case 'prod':
-      config.client.urlRoot = 'http://kevinrmann.com',
+      config.client.urlRoot = 'http://groupwatch.pw',
       config.client.staticRoot = '/static/';
       config.client.assetRoot = '/static/assets/';
       config.staticWeb = '/static/';
