@@ -43,10 +43,11 @@ if (app.get('env') === 'production') {
 
 // Develelopment headers
 if (app.get('env') === 'development') {
+  console.log('allowing this stuff');
   app.use(morgan('dev'));
   app.use(function (req, res, next) {
     // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8000/');
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000/');
 
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -67,8 +68,8 @@ if (app.get('env') === 'development') {
 var timerRouter = require('./app/routers/timer');
 var userRouter = require('./app/routers/user');
 var tokenRouter = require('./app/routers/token');
-app.use('/rest', timerRouter);
 app.use('/rest', tokenRouter);
+app.use('/rest', timerRouter);
 app.use('/rest', userRouter);
 
 // Serve up the index.html file for our angular app
