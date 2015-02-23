@@ -4,6 +4,7 @@
     'templates-common',
     'ui.router.state',
     'btford.socket-io',
+    'angular-jwt',
     'rm.data',
     'rm.navbar',
     'rm.timer',
@@ -25,21 +26,30 @@
 
   .config([
     '$urlRouterProvider',
+    '$httpProvider',
     'InfoProvider',
   function (
     $urlRouterProvider,
+    $httpProvider,
     InfoProvider
   ) {
     $urlRouterProvider.otherwise( '/home' );
+    $httpProvider.interceptors.push('httpInterceptor');
   }])
 
 
-  .run(['Token', function (Token) {
-    Token.getToken();
-  }])
-
-
-  .controller('AppCtrl', ['$rootScope', 'Info', function ($rootScope, Info) {
+  .controller('AppCtrl', [
+    '$rootScope', 
+    '$state', 
+    'Info', 
+  function (
+    $rootScope, 
+    $state, 
+    Info
+  ) {
     $rootScope.assetRoot = Info.assetRoot;
+    $rootScope.$on('expiredToken', function (event, data) {
+      $state.go('home');
+    });
   }]);
 }());

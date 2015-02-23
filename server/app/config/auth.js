@@ -23,7 +23,7 @@ authMiddleware.isAuthenticated = function(req, res, next) {
       !_.isUndefined(decoded_token.exp) && 
       !_.isUndefined(decoded_token.user)) {
     if (decoded_token.exp <= Date.now()) {
-      res.status(400).send("Token has expired");
+      res.status(403).send("Token has expired");
     } 
     else {
       req.user = decoded_token.user;
@@ -52,9 +52,11 @@ authMiddleware.hasAccount = function(req, res, next) {
   if (!_.isUndefined(decoded_token) && 
       !_.isUndefined(decoded_token.exp) && 
       !_.isUndefined(decoded_token.user)) {
+
+    console.log(decoded_token.exp);
+
     if (decoded_token.exp <= Date.now()) {
-      req.user = 0; 
-      next();
+      res.status(403).send("Token has expired");
     } 
     else {
       req.user = decoded_token.user;

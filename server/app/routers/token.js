@@ -9,7 +9,7 @@ var path    = require('path'),
 
 router.post('/tokens', function(req, res) {
   if (_.isUndefined(req.body.email) || _.isUndefined(req.body.password)) {
-    res.status(401).end('An email and a password are required create a token');
+    res.status(401).end('An email and a password are required to sign in');
   }
   else {
     User.findOne({email: req.body.email}, function(err, user) {
@@ -23,7 +23,7 @@ router.post('/tokens', function(req, res) {
         res.status(401).end('Incorrect password for: ' + req.body.email);
       }
       else {
-        var expires = Moment().add(7, 'days').valueOf();
+        var expires = Moment().add(21, 'days').valueOf();
         var token = jwt.encode({
           user: user.id,
           exp: expires

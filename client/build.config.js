@@ -66,7 +66,8 @@ module.exports = {
       'vendor/angular-ui-utils/modules/route/route.js',
       'vendor/moment/moment.js',
       'vendor/socket.io-client/dist/socket.io.js',
-      'vendor/angular-socket-io/socket.js'
+      'vendor/angular-socket-io/socket.js',
+      'vendor/angular-jwt/dist/angular-jwt.js'
     ],
     css: [
       'vendor/normalize-css/normalize.css'

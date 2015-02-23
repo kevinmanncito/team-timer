@@ -94,6 +94,8 @@ router.put('/timers/:id', function (req, res) {
   });
 });
 
+router.use(authMiddleware.isAuthenticated);
+
 router.delete('/timers/:id', function (req, res) {
   Timer.findOne({'_id': req.params.id}, function (err, timer) {
     if (err) {

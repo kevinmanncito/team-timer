@@ -16,23 +16,26 @@
 
 
   .provider('Token', [function() {
-    this.token = '';
-    this.$get = ['$window', '$http', '$state', function ($window, $http, $state) {
-      
+    this.$get = [
+      '$window', 
+      '$state',
+    function (
+      $window, 
+      $state
+    ) {
       return {
         setToken: function (token) {
           $window.localStorage.token = token;
-          this.token = token;
-          $http.defaults.headers.common.Authorization = 'JWT ' + this.token;
         },
         getToken: function () {
-          if (angular.isDefined(this.token)) {
-            return this.token;
+          var token = $window.localStorage.token;
+          if (angular.isDefined(token)) {
+            return token;
           }
           else {
-            if (angular.isDefined($window.localStorage.token)) {
-              this.setToken($window.localStorage.token);
-              return this.token;
+            if (angular.isDefined(token)) {
+              this.setToken(token);
+              return token;
             }
             else {
               return false;
@@ -41,13 +44,11 @@
           return false;
         },
         destroyToken: function () {
-          this.token = '';
           $window.localStorage.removeItem('token');
-          delete $http.defaults.headers.common.Authorization;
         },
         logout: function() {
           this.destroyToken();
-          $state.go('home.public');
+          $state.go('home');
         }
       };
     
@@ -85,6 +86,10 @@
           var promise = $http.put('/rest/timers/' + id, data);
           return promise;
         },
+        deleteTimer: function(id) {
+          var promise = $http.delete('/rest/timers/' + id);
+          return promise;
+        },
         createUser: function(data) {
           var promise = $http.post('/rest/users/', data).then(function (data) {
             return data;
@@ -98,7 +103,41 @@
           return promise;
         }
       };
-
     }];
+  }])
+
+  .factory('httpInterceptor', [
+    '$q', 
+    '$window', 
+    '$rootScope',
+  function(
+    $q,
+    $window,
+    $rootScope
+  ) {
+    return {
+      // optional method
+      request: function(config) {
+        // do something on success
+        var token = $window.localStorage.token;
+        if (token) {
+          config.headers.Authorization = 'JWT ' + token;
+        }
+        return config;
+      },
+
+      // optional method
+      responseError: function(rejection) {
+        // do something on error
+        if (rejection.status === 403) {
+          $window.localStorage.removeItem('token');
+          $rootScope.$broadcast('expiredToken', '');
+          alert("Your session has expired");
+        }
+        return $q.reject(rejection);
+      }
+    };
+
   }]);
+
 }());

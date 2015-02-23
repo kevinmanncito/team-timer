@@ -7,6 +7,7 @@
     '$state',
     '$rootScope',
     '$moment',
+    '$location',
     'timerSocket', 
     'Rest', 
     'Token',
@@ -16,6 +17,7 @@
     $state,
     $rootScope,
     $moment,
+    $location,
     timerSocket, 
     Rest,
     Token,
@@ -26,11 +28,17 @@
       replace: true,
       restrict: 'E',
       scope: {
-        timerData: '='
+        timerData: '=',
+        detailView: '='
       },
       link: function ($scope, iElement, iAttrs) {
         // Initializing the timer.
         $scope.rootUrl = Info.urlRoot;
+        if (Token.getToken()) {
+          $scope.isAuthenticated = true;
+        } else {
+          $scope.isAuthenticated = false;
+        }
         $scope.ticking = false;
         $scope.init = function() {
           if (angular.isDefined($scope.timerData._id)) {
@@ -106,6 +114,15 @@
             $scope.timerData.token = Token.getToken();
             $scope.socket.emit('change', $scope.timerData);
             Rest.updateTimer($scope.timerData._id, $scope.timerData);
+          }
+        };
+
+        $scope.delete = function() {
+          if (angular.isDefined($scope.timerData._id)) {
+            Rest.deleteTimer($scope.timerData._id).then(function (res) {
+              console.log(res);
+              $state.go('home.authenticated');
+            });
           }
         };
 

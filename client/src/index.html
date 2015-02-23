@@ -19,7 +19,12 @@
 
 </head>
 <body>
-  <navbar></navbar>
-  <div ui-view="main"></div>
+  <div class="page-wrapper">
+    <navbar></navbar>
+    <div id="container" ui-view="main"></div>
+  </div>
+  <footer>
+    <p>Copyright 2015 - Kevin Mann</p>
+  </footer>
 </body>
 </html>

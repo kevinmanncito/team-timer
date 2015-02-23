@@ -11,35 +11,39 @@ var path            = require('path'),
 router.post('/users', function (req, res) {
   var email = req.body.email;
   var password = req.body.password;
-  User.findOne({email: email}, function (err, user) {
-    if (err) {
-      res.status(400);
-      res.send(err);
-    }
-    if (user) {
-      res.status(400);
-      res.send("User with " + email + " already exists");
-    }
-    else {
-      var newUser = User();
-      newUser.email = email;
-      newUser.password = newUser.generateHash(password);
-      newUser.save(function (err) {
-        if (err) {
-          res.status(400);
-          res.send(err);
-        }
-        var expires = Moment().add(7, 'days').valueOf();
-        var token = jwt.encode({
-          user: newUser.id,
-          exp: expires
-        }, app.get('jwtTokenSecret'));
-        newUser.token = token;
-        res.status(201);
-        res.json({user: newUser, token: token});
-      });
-    }
-  });
+  if (_.isUndefined(email) || _.isUndefined(password)) {
+    res.status(401).end('An email and a password are required to sign up');
+  } else {
+    User.findOne({email: email}, function (err, user) {
+      if (err) {
+        res.status(400);
+        res.send(err);
+      }
+      if (user) {
+        res.status(400);
+        res.send("User with " + email + " already exists");
+      }
+      else {
+        var newUser = User();
+        newUser.email = email;
+        newUser.password = newUser.generateHash(password);
+        newUser.save(function (err) {
+          if (err) {
+            res.status(400);
+            res.send(err);
+          }
+          var expires = Moment().add(7, 'days').valueOf();
+          var token = jwt.encode({
+            user: newUser.id,
+            exp: expires
+          }, app.get('jwtTokenSecret'));
+          newUser.token = token;
+          res.status(201);
+          res.json({user: newUser, token: token});
+        });
+      }
+    });
+  }
 });
 
 

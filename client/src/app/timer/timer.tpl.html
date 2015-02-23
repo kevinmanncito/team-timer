@@ -23,4 +23,9 @@
       Link: <a class="link" ui-sref="timerDetail({timerId: timerData._id})">{{ rootUrl }}/#/timer/{{ timerData._id }}</a>
     </p>
   </div>
+  <div ng-if="isAuthenticated && timerData._id && detailView">
+    <p>
+      <button ng-click="delete()" class="btn btn-danger">Delete</button>
+    </p>
+  </div>
 </div>

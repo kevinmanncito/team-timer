@@ -3,20 +3,34 @@
   <div class="banner-wrapper">
     <div class="banner">
       <div class="tile-wrapper orange">
-        <h3 class="tile">Sign up to have timers that only you control.</h3>
-        <input type="text" ng-model="email" placeholder="Email">
-        <input type="password" ng-model="password" placeholder="Password" >
-        <div class="btn-wrapper">
-          <a href="" ng-click="createUser()" class="btn btn-success">Sign Up</a>
-        </div>
+        <h3 class="tile" ng-if="!signupError">
+          Sign up to create timers that only you control.
+        </h3>
+        <h3 class="tile error" ng-if="signupError">
+          {{ signupError }}
+        </h3>
+        <form ng-submit="createUser()">
+          <input type="text" ng-model="email" placeholder="Email">
+          <input type="password" ng-model="password" placeholder="Password" >
+          <div class="btn-wrapper">
+            <button type="submit" class="btn btn-success">Sign Up</button>
+          </div>
+        </form>
       </div>
       <div class="tile-wrapper purple">
-        <h3 class="tile">Already have an account? Login to use your timers</h3>
-        <input type="text" ng-model="emailLogin" placeholder="Email">
-        <input type="password" ng-model="passwordLogin" placeholder="Password" >
-        <div class="btn-wrapper">
-          <a href="" ng-click="login()" class="btn btn-success">Login</a>
-        </div>
+        <h3 class="tile" ng-if="!loginError">
+          Already have an account? Login to use your timers.
+        </h3>
+        <h3 class="tile error" ng-if="loginError">
+          {{ loginError }}
+        </h3>
+        <form ng-submit="login()">
+          <input type="text" ng-model="emailLogin" placeholder="Email">
+          <input type="password" ng-model="passwordLogin" placeholder="Password" >
+          <div class="btn-wrapper">
+            <button type="submit" class="btn btn-success">Login</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>

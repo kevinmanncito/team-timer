@@ -89,6 +89,8 @@
       Rest.createUser(data).then(function (res) {
         Token.setToken(res.data.token);
         $state.go('home.authenticated');
+      }, function (err) {
+        $scope.signupError = err.data;
       });
     };
     $scope.login = function() {
@@ -96,6 +98,8 @@
       Rest.login(data).then(function (res) {
         Token.setToken(res.data.token);
         $state.go('account.authenticated');
+      }, function (err) {
+        $scope.loginError = err.data;
       });
     };
   }]);
