@@ -40,6 +40,17 @@
           $scope.isAuthenticated = false;
         }
         $scope.ticking = false;
+
+        $scope.addMinute = function() {
+          $scope.timerData.currentTime += 60;
+          $scope.timeValidator();
+        };
+
+        $scope.subtractMinute = function() {
+          $scope.timerData.currentTime -= 60;
+          $scope.timeValidator();
+        };
+
         $scope.init = function() {
           if (angular.isDefined($scope.timerData._id)) {
             if ($scope.timerData.status === 'on') {

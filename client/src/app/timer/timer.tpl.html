@@ -10,6 +10,10 @@
     <input ng-model="seconds" ng-change="manualTimeChange()" placeholder="00" class="seconds">
   </div>
   <div class="controls">
+    <div class="control add-minute" ng-click="addMinute()"></div>
+    <div class="control subtract-minute" ng-click="subtractMinute()"></div>
+  </div>
+  <div class="controls">
     <div class="control" ng-class="{'play': timerData.status==='off', 'pause': timerData.status==='on'}" ng-click="togglePlayPause()"></div>
     <div class="control reset" ng-click="resetTimer()"></div>
     <div class="control" ng-class="{'up': timerData.type==='up', 'down': timerData.type==='down'}" ng-click="toggleType()"></div>

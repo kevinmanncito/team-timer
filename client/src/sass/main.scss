@@ -273,7 +273,7 @@ nav {
   }
   .controls {
     border-top: 1px solid $lightGray;
-    min-height: 80px;
+    min-height: 76px;
     .control {
       cursor: pointer;
       min-height: 65px;
@@ -283,6 +283,16 @@ nav {
     div {
       float: left;
       width: 33.333%;
+    }
+    .add-minute {
+      width: 50%;
+      background-size: 65px 60px;
+      background-image: url('../assets/img/add2.png');
+    }
+    .subtract-minute {
+      width: 50%;
+      background-size: 65px 60px;
+      background-image: url('../assets/img/subtract.png');
     }
     .play {
       background-image: url('../assets/img/play.png');
